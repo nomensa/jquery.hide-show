@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>jQuery Hide / Show</title>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" media="screen" href="gh-pages/css/normalize.css" />
+        <link rel="stylesheet" media="screen" href="gh-pages/css/styles.css" />
+        <link rel="stylesheet" media="screen" href="gh-pages/css/demo.css" />
+        <link rel="stylesheet" media="screen" href="gh-pages/css/rainbow/github.css" />
+    </head>
+
+    <body>
+        <div class="header">
+            <p><a href="http://nomensa.com?plugin"><img src="gh-pages/img/nomensa-logo.png" alt="Nomensa humanising technology" width="135" height="38"/></a></p>
+        </div><!-- .header -->
+
+        <div class="main" role="main">
+            <h1>jQuery Hide / Show</h1>
+            <p>Inserts an accessible buttons/links to hide and show sections of content.</p>
+
+            <h2>Example A</h2>
+            <p>Example of the hide/show plugin with the default options.</p>
+            <div class="exampleA">
+                Text content to be hidden text content to be hidden text content to be hidden text content to be hidden
+            </div><!-- .exampleA -->
+            <h3>Initialisation</h3>
+            <pre>
+<code data-language="javascript">
+$(".exampleA").hideShow();
+</code>
+</pre>
+
+            <h2>Example B</h2>
+            <p>Example of the hide/show plugin with customised options. The content should be hidden by default.</p>
+            <div class="exampleB">
+                <form>
+                    <label>Search </label>
+                    <input type="search" />
+                    <input class="submit" type="submit" value="Search" />
+                </form>
+            </div><!-- .exampleB -->
+            <h3>Initialisation</h3>
+            <pre>
+<code data-language="javascript">
+$(".exampleB").hideShow({
+    speed: '600',
+    showText: 'Expand Search',
+    hideText: 'Collapse Search',
+    state: 'hidden',
+    triggerElement: true
+});
+</code>
+</pre>
+        </div><!-- .main -->
+
+        <div class="footer">
+            <div>
+                <p><strong>jQuery.hideShow.js</strong> is licensed under the MIT License. <br />See the LICENSE.md file in the <a href="https://github.com/nomensa/jquery.hide-show">source code</a> for copy permission.</p>
+            </div>
+        </div><!-- .footer -->
+
+        <!-- Plugin scripts -->
+        <script src="gh-pages/js/vendor/jquery/1.10.2/jquery.min.js"></script>
+        <script src="gh-pages/js/vendor/rainbow/rainbow.min.js"></script>
+        <script src="gh-pages/js/vendor/rainbow/language/generic.js"></script>
+        <script src="gh-pages/js/vendor/rainbow/language/javascript.js"></script>
+        <script src="jquery.hideShow.js"></script>
+        <script>
+            $(document).ready( function(){
+                $(".exampleA").hideShow();
+
+                $(".exampleB").hideShow({
+                    speed: '600',
+                    showText: 'Expand Search',
+                    hideText: 'Collapse Search',
+                    state: 'hidden',
+                    triggerElement: true
+                });
+            });
+        </script>
+    </body>
+</html>

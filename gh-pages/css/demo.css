@@ -1,0 +1,89 @@
+/**
+ * demo.css
+ *
+ * Description: Demo styles for the plugin examples
+ * Author: Nomensa
+ *
+ */
+
+.js-hide-show,
+.js-hide-show-content {
+    margin: 1em 0;
+}
+
+.exampleA {
+    padding: 1em;
+    background-color: #ceefff;
+    border: 1px solid #85d6ff;
+    border-radius: 10px;
+}
+
+.js-hide-show-btn,
+.submit {
+    padding: 6px 1em;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,
+      rgba(255,255,255,1) 0%,
+      rgba(243,243,243,1) 50%,
+      rgba(237,237,237,1) 51%,
+      rgba(243,243,243,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear,
+      left top, left bottom, color-stop(0%,rgba(255,255,255,1)),
+      color-stop(50%,rgba(243,243,243,1)),
+      color-stop(51%,rgba(237,237,237,1)),
+      color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,
+        rgba(255,255,255,1) 0%,
+        rgba(243,243,243,1) 50%,
+        rgba(237,237,237,1) 51%,
+        rgba(243,243,243,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,
+      rgba(255,255,255,1) 0%,
+      rgba(243,243,243,1) 50%,
+      rgba(237,237,237,1) 51%,
+      rgba(243,243,243,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,
+      rgba(255,255,255,1) 0%,
+      rgba(243,243,243,1) 50%,
+      rgba(237,237,237,1) 51%,
+      rgba(243,243,243,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,
+      rgba(255,255,255,1) 0%,
+      rgba(243,243,243,1) 50%,
+      rgba(237,237,237,1) 51%,
+      rgba(243,243,243,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+    -moz-box-shadow:
+      0px 1px 3px rgba(000,000,000,0.1),
+      inset 0px 0px 3px rgba(255,255,255,1);
+    -webkit-box-shadow:
+      0px 1px 3px rgba(000,000,000,0.1),
+      inset 0px 0px 3px rgba(255,255,255,1);
+    box-shadow:
+      0px 1px 3px rgba(000,000,000,0.1),
+      inset 0px 0px 3px rgba(255,255,255,1);
+    text-shadow:
+      0px -1px 0px rgba(000,000,000,0.2),
+      0px 1px 0px rgba(255,255,255,1);
+      cursor: pointer;
+    -webkit-box-shadow: 0;
+    box-shadow: 0;
+    border: 1px solid #dfdfdf;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.exampleB label {
+    display: block;
+    text-indent: -999em;
+    height: 0;
+}
+
+.exampleB input[type="search"] {
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #dfdfdf;
+    min-width: 20%;
+    margin-right: 10px;
+}
