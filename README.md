@@ -35,14 +35,20 @@ Descritpion: The class which is added to the content when it is visible
 ### buttonClass
 
 Type: `string`
-Default: 'btn'
+Default: 'js-hide-show-btn'
 Description: The class which is added to the button for styling purposes
 
 ### buttonId
 
 Type: `string`
-Default: 'btn-control'
+Default: 'btn-control-'
 Description: The ID used to target the button
+
+### buttonExpandedClass
+
+Type: `string`
+Default: 'js-hide-show-btn--expanded'
+Description: The class name applied to the button when element is expanded
 
 ### speed
 

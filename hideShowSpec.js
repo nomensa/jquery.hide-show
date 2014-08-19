@@ -133,6 +133,13 @@ describe('hide-show', function () {
             expect(testElement.siblings('button').text()).toBe('Collapse Search');
         });
 
+        it('should set the class on the button when the content is expanded', function () {
+            testElement.hideShow({
+                buttonExpandedClass: 'expanded'
+            });
+            expect(testElement.siblings('button').hasClass('expanded')).toBe(true);
+        });
+
         it('should remove the hidden class from the content and add a visible class to it when the button is clicked', function () {
             testElement.hideShow({
                 visibleClass: 'content-visible',

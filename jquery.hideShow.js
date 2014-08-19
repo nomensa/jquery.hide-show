@@ -3,7 +3,7 @@
  *
  * @description: Inserts an accessible buttons/links to hide and show sections of content
  * @source: https://github.com/nomensa/jquery.hide-show.git
- * @version: '0.1.0'
+ * @version: '0.1.1'
  *
  * @author: Nomensa
  * @license: licenced under MIT - http://opensource.org/licenses/mit-license.php
@@ -26,6 +26,8 @@
         buttonClass: 'js-hide-show-btn',
         // the string used for the ID to target the button
         buttonId: 'btn-control-',
+        // the class name applied to the button when element is expanded
+        buttonExpandedClass: 'js-hide-show-btn--expanded',
         // the speed applied to the transition when displaying the element
         speed: 'slow',
         // the text to apply to the button/link phrase for the trigger element when hidden
@@ -78,14 +80,20 @@
             */
                 if (self.element.hasClass(self.options.visibleClass)) {
                     self.element.slideUp(self.options.speed);
-                    $(triggerElement).text(self.options.showText);
-                    self.element.removeClass(self.options.visibleClass).addClass(self.options.hiddenClass);
+                    self.element.removeClass(self.options.visibleClass);
+                    self.element.addClass(self.options.hiddenClass);
                     self.element.attr('aria-expanded', 'false');
+
+                    $(triggerElement).removeClass(self.options.buttonExpandedClass);
+                    $('span', triggerElement).text(self.options.showText);
                 } else {
                     self.element.slideDown(self.options.speed);
-                    $(triggerElement).text(self.options.hideText);
-                    self.element.removeClass(self.options.hiddenClass).addClass(self.options.visibleClass);
+                    self.element.removeClass(self.options.hiddenClass);
+                    self.element.addClass(self.options.visibleClass);
                     self.element.attr('aria-expanded', 'true');
+
+                    $(triggerElement).addClass(self.options.buttonExpandedClass);
+                    $('span', triggerElement).text(self.options.hideText);
                 }
                 return false;
             });
@@ -94,26 +102,22 @@
             counter++;
         }
 
-
         function createTriggerElement() {
         /*
             Create the button element that will hide or show the content
         */
-            var instruction,
+            var triggerElement,
                 attribute = self.options.containerId;
 
-            if (self.options.state === 'hidden') {
-                instruction = self.options.showText;
-            } else {
-                instruction = self.options.hideText;
-            }
-
-            var triggerElement;
-
             if (self.options.triggerElement) {
-                triggerElement = $(document.createElement('a'));
+                triggerElement = $(document.createElement('a')).html('<span />');
+
+                triggerElement.attr({
+                    'href': '#',
+                    'role': 'button'
+                });
             } else {
-                triggerElement = $(document.createElement('button'));
+                triggerElement = $(document.createElement('button')).html('<span />');
             }
 
             triggerElement.attr({
@@ -123,14 +127,13 @@
                 'aria-controls': attribute + counter
             });
 
-            if (self.options.triggerElement) {
-                triggerElement.attr({
-                    'href': '#',
-                    'role': 'button'
-                });
-            }
+            if (self.options.state === 'hidden') {
+                $('span', triggerElement).text(self.options.showText);
+            } else {
+                $('span', triggerElement).text(self.options.hideText);
 
-            triggerElement.text(instruction);
+                triggerElement.addClass(self.options.buttonExpandedClass);
+            }
 
             return triggerElement;
         }
