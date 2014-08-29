@@ -87,6 +87,13 @@ describe('hide-show', function () {
             expect(testElement.attr('id')).toContain('content');
         });
 
+        it('should set the class on the element inside the button', function () {
+            testElement.hideShow({
+                buttonHelperClass: 'remove'
+            });
+            expect(testElement.siblings('.js-hide-show-btn').children().hasClass('remove')).toBe(true);
+        });
+
     });
 
 
@@ -188,7 +195,6 @@ describe('hide-show', function () {
             expect(testElement.siblings('a')).toBeDefined();
             expect(testElement.siblings('a').attr('role')).toBe('button');
         });
-
     });
 
     describe('- click function', function () {

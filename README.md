@@ -38,6 +38,12 @@ Type: `string`
 Default: 'js-hide-show-btn'
 Description: The class which is added to the button for styling purposes
 
+### buttonHelperClass
+
+Type `string`
+Default 'hide'
+Description: The class which is added to the element inside the button. Can be used to hide text off screen if needed
+
 ### buttonId
 
 Type: `string`

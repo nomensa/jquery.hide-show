@@ -24,6 +24,8 @@
         visibleClass: 'visible',
         // the class name applied to the hide/show trigger element
         buttonClass: 'js-hide-show-btn',
+        // the class name applied to the element inside the button (used to hide text off screen)
+        buttonHelperClass: 'hide',
         // the string used for the ID to target the button
         buttonId: 'btn-control-',
         // the class name applied to the button when element is expanded
@@ -107,17 +109,18 @@
             Create the button element that will hide or show the content
         */
             var triggerElement,
-                attribute = self.options.containerId;
+                attribute = self.options.containerId,
+                buttonHelper = '<span class="' + self.options.buttonHelperClass + '"/>';
 
             if (self.options.triggerElement) {
-                triggerElement = $(document.createElement('a')).html('<span />');
+                triggerElement = $(document.createElement('a')).html(buttonHelper);
 
                 triggerElement.attr({
                     'href': '#',
                     'role': 'button'
                 });
             } else {
-                triggerElement = $(document.createElement('button')).html('<span />');
+                triggerElement = $(document.createElement('button')).html(buttonHelper);
             }
 
             triggerElement.attr({
