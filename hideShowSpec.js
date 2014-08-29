@@ -87,6 +87,13 @@ describe('hide-show', function () {
             expect(testElement.attr('id')).toContain('content');
         });
 
+        it('should set the class on the element inside the button', function () {
+            testElement.hideShow({
+                buttonHelperClass: 'remove'
+            });
+            expect(testElement.siblings('.js-hide-show-btn').children().hasClass('remove')).toBe(true);
+        });
+
     });
 
 
@@ -131,6 +138,13 @@ describe('hide-show', function () {
             });
             testElement.siblings('button').trigger('click');
             expect(testElement.siblings('button').text()).toBe('Collapse Search');
+        });
+
+        it('should set the class on the button when the content is expanded', function () {
+            testElement.hideShow({
+                buttonExpandedClass: 'expanded'
+            });
+            expect(testElement.siblings('button').hasClass('expanded')).toBe(true);
         });
 
         it('should remove the hidden class from the content and add a visible class to it when the button is clicked', function () {
@@ -181,7 +195,6 @@ describe('hide-show', function () {
             expect(testElement.siblings('a')).toBeDefined();
             expect(testElement.siblings('a').attr('role')).toBe('button');
         });
-
     });
 
     describe('- click function', function () {

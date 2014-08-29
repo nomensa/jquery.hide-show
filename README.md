@@ -35,14 +35,26 @@ Descritpion: The class which is added to the content when it is visible
 ### buttonClass
 
 Type: `string`
-Default: 'btn'
+Default: 'js-hide-show-btn'
 Description: The class which is added to the button for styling purposes
+
+### buttonHelperClass
+
+Type `string`
+Default 'hide'
+Description: The class which is added to the element inside the button. Can be used to hide text off screen if needed
 
 ### buttonId
 
 Type: `string`
-Default: 'btn-control'
+Default: 'btn-control-'
 Description: The ID used to target the button
+
+### buttonExpandedClass
+
+Type: `string`
+Default: 'js-hide-show-btn--expanded'
+Description: The class name applied to the button when element is expanded
 
 ### speed
 
@@ -134,6 +146,7 @@ $ grunt
 
 ## Release history
 
+ - 0.1.1 Improved button to allow for better customisation
  - 0.1.0 Tagged stable version for release
 
 Copyright &copy; 2014 [@nomensa](http://nomensa.com)
