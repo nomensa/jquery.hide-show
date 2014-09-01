@@ -146,6 +146,7 @@ $ grunt
 
 ## Release history
 
+ - 0.1.2 Simplified to allow greater control of the context of the button
  - 0.1.1 Improved button to allow for better customisation
  - 0.1.0 Tagged stable version for release
 

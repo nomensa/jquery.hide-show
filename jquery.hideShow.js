@@ -3,7 +3,7 @@
  *
  * @description: Inserts an accessible buttons/links to hide and show sections of content
  * @source: https://github.com/nomensa/jquery.hide-show.git
- * @version: '0.1.1'
+ * @version: '0.1.2'
  *
  * @author: Nomensa
  * @license: licenced under MIT - http://opensource.org/licenses/mit-license.php
@@ -24,8 +24,6 @@
         visibleClass: 'visible',
         // the class name applied to the hide/show trigger element
         buttonClass: 'js-hide-show-btn',
-        // the class name applied to the element inside the button (used to hide text off screen)
-        buttonHelperClass: 'hide',
         // the string used for the ID to target the button
         buttonId: 'btn-control-',
         // the class name applied to the button when element is expanded
@@ -87,7 +85,7 @@
                     self.element.attr('aria-expanded', 'false');
 
                     $(triggerElement).removeClass(self.options.buttonExpandedClass);
-                    $('span', triggerElement).text(self.options.showText);
+                    $(triggerElement).html(self.options.showText);
                 } else {
                     self.element.slideDown(self.options.speed);
                     self.element.removeClass(self.options.hiddenClass);
@@ -95,7 +93,7 @@
                     self.element.attr('aria-expanded', 'true');
 
                     $(triggerElement).addClass(self.options.buttonExpandedClass);
-                    $('span', triggerElement).text(self.options.hideText);
+                    $(triggerElement).html(self.options.hideText);
                 }
                 return false;
             });
@@ -109,18 +107,17 @@
             Create the button element that will hide or show the content
         */
             var triggerElement,
-                attribute = self.options.containerId,
-                buttonHelper = '<span class="' + self.options.buttonHelperClass + '"/>';
+                attribute = self.options.containerId;
 
             if (self.options.triggerElement) {
-                triggerElement = $(document.createElement('a')).html(buttonHelper);
+                triggerElement = $(document.createElement('a'));
 
                 triggerElement.attr({
                     'href': '#',
                     'role': 'button'
                 });
             } else {
-                triggerElement = $(document.createElement('button')).html(buttonHelper);
+                triggerElement = $(document.createElement('button'));
             }
 
             triggerElement.attr({
@@ -131,9 +128,9 @@
             });
 
             if (self.options.state === 'hidden') {
-                $('span', triggerElement).text(self.options.showText);
+                $(triggerElement).html(self.options.showText);
             } else {
-                $('span', triggerElement).text(self.options.hideText);
+                $(triggerElement).html(self.options.hideText);
 
                 triggerElement.addClass(self.options.buttonExpandedClass);
             }
