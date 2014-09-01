@@ -101,9 +101,9 @@ Description: The class for the content wrapper
 
 This plugin requires:
 
-[node.js](http://nodejs.org/) `~0.10.x`
-[Grunt](http://gruntjs.com/) `~0.4.0`
-[jQuery](http://jquery.com) `~v1.9.x`
+ - [node.js](http://nodejs.org/) `~0.10.x`
+ - [Grunt](http://gruntjs.com/) `~0.4.0`
+ - [jQuery](http://jquery.com) `~v1.9.x`
 
 ### Node
 First time setup of this plugin will require the node packages to be installed. On Windows use the command prompt with Ruby or on a Mac use terminal, install the global node.js packages:
@@ -135,13 +135,6 @@ Running grunt (with watcher) will watch for any changes and recompile - best use
 ```bash
 $ grunt
 ```
-
-## Supported Browsers
-* Firefox 23.0.1
-* Google Chrome 29.0.1547.66 m
-* Internet Explorer 7, 8, 9, 10 & 11
-* Opera 12.16
-* Safari 5.1.7
 
 
 ## Release history
