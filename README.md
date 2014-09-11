@@ -1,4 +1,4 @@
-# jQuery Hide / Show
+# jQuery Hide / Show [![Build Status](https://travis-ci.org/nomensa/jquery.hide-show.svg)](https://travis-ci.org/nomensa/jquery.hide-show)
 
 > Inserts an accessible buttons/links to hide and show sections of content.
 
