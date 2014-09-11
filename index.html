@@ -52,6 +52,17 @@ $(".exampleB").hideShow({
 });
 </code>
 </pre>
+
+        <h2>Example C</h2>
+        <p>Example showing an existing element on the page converted to a trigger element for the hide/show content.</p>
+
+        <div class="exampleC">
+            <div class="row">
+                <h2 class="title">Can't find your doctor?</h2>
+                <p class="a">Please call 01234 567 890.</p>
+            </div><!-- end .row -->
+        </div><!-- end .exampleC -->
+
         </div><!-- .main -->
 
         <div class="footer">
@@ -75,7 +86,14 @@ $(".exampleB").hideShow({
                     showText: 'Expand Search',
                     hideText: 'Collapse Search',
                     state: 'hidden',
-                    triggerElement: true
+                    triggerType: true
+                });
+
+                $(".exampleC").hideShow({
+                    speed: '600',
+                    state: 'hidden',
+                    triggerElement: true,
+                    triggerType: true
                 });
             });
         </script>

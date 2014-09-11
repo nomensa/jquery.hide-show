@@ -176,14 +176,14 @@ describe('hide-show', function () {
 
         it('should set the trigger element as a button', function () {
             testElement.hideShow({
-                triggerElement: false
+                triggerType: false
             });
             expect(testElement.siblings('button')).toBeDefined();
         });
 
         it('should set the trigger element as an anchor', function () {
             testElement.hideShow({
-                triggerElement: true
+                triggerType: true
             });
             expect(testElement.siblings('a')).toBeDefined();
             expect(testElement.siblings('a').attr('role')).toBe('button');
