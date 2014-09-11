@@ -67,8 +67,6 @@
             var triggerElement = createTriggerElement(),
                 wrapper = createWrapper();
 
-            console.log(triggerElement);
-
             self.element.wrap(wrapper).before(triggerElement);
             self.element.addClass(self.options.containerClass);
             self.element.attr('id', (self.options.containerId + counter));
@@ -131,7 +129,7 @@
                 if (self.options.triggerType) {
                     triggerElementOriginal.replaceWith('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
                 } else {
-                    triggerElement = triggerElementOriginal.replaceWith('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
+                    triggerElementOriginal.replaceWith('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
                 }
                 triggerElement = self.element.find('.' + self.options.buttonClass);
 
