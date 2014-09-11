@@ -94,5 +94,6 @@ module.exports = function(grunt) {
 
     // Default tasks e.g. where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default', 'watch');
-    grunt.registerTask('release', ['version']);
+    grunt.registerTask('test', ['jshint', 'jscs', 'karma']);
+    grunt.registerTask('release', ['test', 'uglify', 'version']);
 };
