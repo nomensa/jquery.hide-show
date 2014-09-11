@@ -430,3 +430,7 @@ button:focus {
 .footer a {
     color: #fdc329;
 }
+
+.row {
+    padding: 10px 0;
+}

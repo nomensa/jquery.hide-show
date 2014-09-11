@@ -12,6 +12,13 @@ describe('hide-show', function () {
             '</div>',
         testElement;
 
+    var markUp2 =
+            '<div class="row">' +
+                '<h2 class="title">Can\'t find your doctor</h2>' +
+                '<p>Please call 01234 567 890.</p>' +
+            '</div>',
+        testElement2;
+
     beforeEach(function () {
         testElement = $(markUp);
     });
@@ -176,18 +183,39 @@ describe('hide-show', function () {
 
         it('should set the trigger element as a button', function () {
             testElement.hideShow({
-                triggerElement: false
+                triggerType: false
             });
             expect(testElement.siblings('button')).toBeDefined();
         });
 
         it('should set the trigger element as an anchor', function () {
             testElement.hideShow({
-                triggerElement: true
+                triggerType: true
             });
             expect(testElement.siblings('a')).toBeDefined();
             expect(testElement.siblings('a').attr('role')).toBe('button');
         });
+
+        beforeEach(function () {
+            testElement2 = $(markUp2);
+        });
+
+        it('should replace the chosen element with a trigger element (anchor)', function () {
+            testElement2.hideShow({
+                triggerType: true,
+                triggerElement: true
+            });
+            expect(testElement2.siblings('a')).toBeDefined();
+        });
+
+        it('should replace the chosen element with a trigger element (button)', function () {
+            testElement2.hideShow({
+                triggerType: false,
+                triggerElement: true
+            });
+            expect(testElement2.siblings('button')).toBeDefined();
+        });
+
     });
 
     describe('- click function', function () {

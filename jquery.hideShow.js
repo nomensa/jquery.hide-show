@@ -42,8 +42,13 @@
         containerClass: 'js-hide-show-content',
         // the class for the content wrapper
         wrapClass: 'js-hide-show',
-        // Define the trigger element as an anchor rather than a button - true is an anchor, false is a button
-        triggerElement: false
+        // Define the trigger type as an anchor rather than a button - true is an anchor, false is a button
+        triggerType: false,
+        // Defines whether the triggerElement exists on the page or should be inserted dynamically
+        triggerElement: false,
+        // Defines the element to use as the triggerElement
+        triggerElementClass: 'title'
+
     };
 
     function ShowHide(element, options) {
@@ -66,6 +71,7 @@
             self.element.addClass(self.options.containerClass);
             self.element.attr('id', (self.options.containerId + counter));
 
+
             if (self.options.state === 'hidden') {
                 self.element.addClass(self.options.hiddenClass).hide();
                 self.element.attr('aria-expanded', 'false');
@@ -73,6 +79,7 @@
                 self.element.addClass(self.options.visibleClass).show();
                 self.element.attr('aria-expanded', 'true');
             }
+
 
             $(triggerElement).click(function() {
             /*
@@ -84,16 +91,20 @@
                     self.element.addClass(self.options.hiddenClass);
                     self.element.attr('aria-expanded', 'false');
 
-                    $(triggerElement).removeClass(self.options.buttonExpandedClass);
-                    $(triggerElement).html(self.options.showText);
+                    if (!self.options.triggerElement) {
+                        $(triggerElement).removeClass(self.options.buttonExpandedClass);
+                        $(triggerElement).html(self.options.showText);
+                    }
                 } else {
                     self.element.slideDown(self.options.speed);
                     self.element.removeClass(self.options.hiddenClass);
                     self.element.addClass(self.options.visibleClass);
                     self.element.attr('aria-expanded', 'true');
 
-                    $(triggerElement).addClass(self.options.buttonExpandedClass);
-                    $(triggerElement).html(self.options.hideText);
+                    if (!self.options.triggerElement) {
+                        $(triggerElement).addClass(self.options.buttonExpandedClass);
+                        $(triggerElement).html(self.options.hideText);
+                    }
                 }
                 return false;
             });
@@ -107,35 +118,52 @@
             Create the button element that will hide or show the content
         */
             var triggerElement,
-                attribute = self.options.containerId;
+                attribute = self.options.containerId,
+                triggerElementOriginal,
+                triggerElementText;
 
             if (self.options.triggerElement) {
-                triggerElement = $(document.createElement('a'));
+                triggerElementOriginal = $('.' + self.options.triggerElementClass);
+                triggerElementText = triggerElementOriginal.text();
+
+                if (self.options.triggerType) {
+                    triggerElementOriginal.replaceWith('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
+                } else {
+                    triggerElementOriginal.replaceWith('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
+                }
+                triggerElement = self.element.find('.' + self.options.buttonClass);
+
+
+            } else {
+                if (self.options.triggerType) {
+                    triggerElement = $(document.createElement('a'));
+
+                    triggerElement.attr({
+                        'href': '#',
+                        'role': 'button'
+                    });
+                } else {
+                    triggerElement = $(document.createElement('button'));
+                }
 
                 triggerElement.attr({
-                    'href': '#',
-                    'role': 'button'
+                    'class': self.options.buttonClass,
+                    'id': self.options.buttonId + counter,
+                    'aria-owns': attribute + counter,
+                    'aria-controls': attribute + counter
                 });
-            } else {
-                triggerElement = $(document.createElement('button'));
-            }
 
-            triggerElement.attr({
-                'class': self.options.buttonClass,
-                'id': self.options.buttonId + counter,
-                'aria-owns': attribute + counter,
-                'aria-controls': attribute + counter
-            });
+                if (self.options.state === 'hidden') {
+                    $(triggerElement).html(self.options.showText);
+                } else {
+                    $(triggerElement).html(self.options.hideText);
 
-            if (self.options.state === 'hidden') {
-                $(triggerElement).html(self.options.showText);
-            } else {
-                $(triggerElement).html(self.options.hideText);
-
-                triggerElement.addClass(self.options.buttonExpandedClass);
+                    triggerElement.addClass(self.options.buttonExpandedClass);
+                }
             }
 
             return triggerElement;
+
         }
 
         function createWrapper() {

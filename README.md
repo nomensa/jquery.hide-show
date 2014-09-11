@@ -97,6 +97,18 @@ Type: `string`
 Default: 'content-wrap'
 Description: The class for the content wrapper
 
+### triggerType
+
+Type: `boolean`
+Default: 'false'
+Description: Defines whether the inserted triggerElement is a button or an anchor
+
+### triggerElement
+
+Type: `boolean`
+Default: 'true'
+Description: Defines if the trigger element exists on the page or is inserted by the plugin
+
 ## Development
 
 This plugin requires:
