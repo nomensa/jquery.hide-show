@@ -249,15 +249,38 @@ describe('hide-show', function () {
 
         it('should unwrap the help content and remove the trigger element when destroyed', function () {
             testElement.hideShow();
-            var sibling;
-                parent;
+            var triggerElement,
+                wrapperElement;
 
             testElement.data('plugin_hideShow').destroy();
-            sibling = testElement.siblings('button');
-            parent = testElement.parent('.content-wrap');
+            triggerElement = testElement.siblings('.js-hide-show-btn');
+            wrapperElement = testElement.parent('.content-wrap');
 
-            expect(sibling.length).toBe(0);
-            expect(parent.length).toBe(0);
+            expect(triggerElement.length).toBe(0);
+            expect(wrapperElement.length).toBe(0);
+        });
+
+        it('should remove user specific classes from the element', function () {
+            testElement.hideShow();
+
+            testElement.data('plugin_hideShow').destroy();
+            expect(testElement.hasClass('js-hide-show-content')).toBe(false);
+            expect(testElement.hasClass('hidden')).toBe(false);
+            expect(testElement.hasClass('visible')).toBe(false);
+        });
+
+        it('should remove aria-expanded from the element', function () {
+            testElement.hideShow();
+
+            testElement.data('plugin_hideShow').destroy();
+            expect(testElement.attr('aria-expanded')).toBe(undefined);
+        });
+
+        it('should remove the inserted id from the element', function () {
+            testElement.hideShow();
+
+            testElement.data('plugin_hideShow').destroy();
+            expect(testElement.attr('id')).toBe(undefined);
         });
 
     });

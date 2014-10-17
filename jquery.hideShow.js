@@ -216,6 +216,7 @@
         this.element.unwrap().show();
         this.element.removeClass(this.options.containerClass);
         this.element.removeClass(this.options.hiddenClass);
+        this.element.removeClass(this.options.visibleClass);
         this.element.removeAttr('aria-expanded');
         this.element.removeAttr('id');
         this.triggerElementOriginal.show();
