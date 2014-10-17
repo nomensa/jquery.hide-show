@@ -51,7 +51,9 @@
         // Defines if show/hide functionality is required constantly through mobile to desktop
         continual: true,
         // Breakpoint at which the show/hide functionality displays
-        breakpoint: 768
+        breakpoint: 768,
+        // Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
+        breakpointClass: 'mobile'
 
     };
 
@@ -69,58 +71,70 @@
         /*
             Create the button element, put a wrapper around the button and content, set initial state and set up event handlers
         */
-            console.log(self.triggerElementOriginal);
 
-            var triggerElement = createTriggerElement(),
-                wrapper = createWrapper();
+            changeToBreakpoint();
 
-            self.element.wrap(wrapper).before(triggerElement);
-            self.element.addClass(self.options.containerClass);
-            self.element.attr('id', (self.options.containerId + counter));
-
-            if (self.options.state === 'hidden') {
-                self.element.addClass(self.options.hiddenClass).hide();
-                self.element.attr('aria-expanded', 'false');
-            } else {
-                self.element.addClass(self.options.visibleClass).show();
-                self.element.attr('aria-expanded', 'true');
-            }
-
-            if (!self.options.continual) {
+            $(window).on('debouncedresize', function() {
                 changeToBreakpoint();
-            }
 
-
-            $(triggerElement).click(function() {
-            /*
-                On click, show or hide the content based on its state
-            */
-                if (self.element.hasClass(self.options.visibleClass)) {
-                    self.element.slideUp(self.options.speed);
-                    self.element.removeClass(self.options.visibleClass);
-                    self.element.addClass(self.options.hiddenClass);
-                    self.element.attr('aria-expanded', 'false');
-
-                    if (!self.options.triggerElement) {
-                        $(triggerElement).removeClass(self.options.buttonExpandedClass);
-                        $(triggerElement).html(self.options.showText);
-                    }
+                if (self.element.hasClass(self.options.breakpointClass)) {
+                    self.destroy();
                 } else {
-                    self.element.slideDown(self.options.speed);
-                    self.element.removeClass(self.options.hiddenClass);
-                    self.element.addClass(self.options.visibleClass);
-                    self.element.attr('aria-expanded', 'true');
-
-                    if (!self.options.triggerElement) {
-                        $(triggerElement).addClass(self.options.buttonExpandedClass);
-                        $(triggerElement).html(self.options.hideText);
+                    if (!self.element.parent().hasClass(self.options.wrapClass)) {
+                        init();
                     }
                 }
-                return false;
             });
 
-            // Increment counter for unique ID's
-            counter++;
+            if (!self.element.hasClass(self.options.breakpointClass)) {
+                var triggerElement = createTriggerElement(),
+                    wrapper = createWrapper();
+
+
+                self.element.wrap(wrapper).before(triggerElement);
+
+                self.element.addClass(self.options.containerClass);
+                self.element.attr('id', (self.options.containerId + counter));
+
+                if (self.options.state === 'hidden') {
+                    self.element.addClass(self.options.hiddenClass).hide();
+                    self.element.attr('aria-expanded', 'false');
+                } else {
+                    self.element.addClass(self.options.visibleClass).show();
+                    self.element.attr('aria-expanded', 'true');
+                }
+
+                $(triggerElement).click(function() {
+                /*
+                    On click, show or hide the content based on its state
+                */
+                    if (self.element.hasClass(self.options.visibleClass)) {
+                        self.element.slideUp(self.options.speed);
+                        self.element.removeClass(self.options.visibleClass);
+                        self.element.addClass(self.options.hiddenClass);
+                        self.element.attr('aria-expanded', 'false');
+
+                        if (!self.options.triggerElement) {
+                            $(triggerElement).removeClass(self.options.buttonExpandedClass);
+                            $(triggerElement).html(self.options.showText);
+                        }
+                    } else {
+                        self.element.slideDown(self.options.speed);
+                        self.element.removeClass(self.options.hiddenClass);
+                        self.element.addClass(self.options.visibleClass);
+                        self.element.attr('aria-expanded', 'true');
+
+                        if (!self.options.triggerElement) {
+                            $(triggerElement).addClass(self.options.buttonExpandedClass);
+                            $(triggerElement).html(self.options.hideText);
+                        }
+                    }
+                    return false;
+                });
+
+                // Increment counter for unique ID's
+                counter++;
+            }
         }
 
         function createTriggerElement() {
@@ -184,28 +198,33 @@
             return wrapper;
         }
 
-        $(window).resize(function() {
-            changeToBreakpoint();
-        });
-
         function changeToBreakpoint() {
         /*
             React to a change in screen size breakpoint
         */
+
             var windowWidth = $(window).width();
-            console.log(windowWidth);
-            // show on mobile only
-            if (windowWidth >= self.options.breakpoint) {
-                console.log('if');
-                self.destroy();
-            } else {
-                console.log('else');
-                self.init();
+
+            if (!self.options.continual) {
+                if (windowWidth >= self.options.breakpoint) {
+                    self.element.addClass(self.options.breakpointClass);
+                } else {
+                    self.element.removeClass(self.options.breakpointClass);
+                }
             }
+
         }
 
         init();
     }
+
+     // PUBLIC API
+    ShowHide.prototype.rebuild = function() {
+    /*
+        rebuild the plugin and apply show/hide options
+    */
+        return new ShowHide(this.element, this.options);
+    };
 
 
     ShowHide.prototype.destroy = function () {
@@ -213,7 +232,8 @@
         Return the dom back to its initial state
     */
         this.element.siblings('.' + this.options.buttonClass).remove();
-        this.element.unwrap().show();
+        $('.' + this.options.wrapClass).find(this.element).unwrap();
+        this.element.show();
         this.element.removeClass(this.options.containerClass);
         this.element.removeClass(this.options.hiddenClass);
         this.element.removeClass(this.options.visibleClass);

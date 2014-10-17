@@ -79,7 +79,7 @@ $(".exampleC").hideShow({
 
         <div class="exampleD">
             <div class="row">
-                <h2 class="test">Show my content</h2>
+                <h2 class="title">Show my content</h2>
                 <p>Etiam tincidunt lobortis posuere? Sed convallis malesuada turpis, vel auctor lacus lacinia eget. Mauris tincidunt leo ut est lacinia porttitor. Nulla gravida, nisi sed vestibulum facilisis, sem ante luctus ligula, id viverra libero velit eu orci? Aliquam non bibendum massa. Duis ornare tellus sagittis ante bibendum dapibus. Donec pulvinar quis lorem eu dictum. Cu</p>
             </div><!-- end .row -->
         </div><!-- end .exampleD -->
@@ -95,7 +95,20 @@ $(".exampleD").hideShow({
 </code>
 </pre>
 
+           <h2>Public API Examples</h2>
+            <div class="api-examples">
+                <div class="api-example">
+                    <div class="row">
+                        <h2 class="title">Show my content</h2>
+                        <p>Etiam tincidunt lobortis posuere? Sed convallis malesuada turpis, vel auctor lacus lacinia eget. Mauris tincidunt leo ut est lacinia porttitor. Nulla gravida, nisi sed vestibulum facilisis, sem ante luctus ligula, id viverra libero velit eu orci? Aliquam non bibendum massa. Duis ornare tellus sagittis ante bibendum dapibus. Donec pulvinar quis lorem eu dictum. Cu</p>
+                    </div><!-- end .row -->
+                </div><!-- end api-example -->
+            </div><!-- .api-examples -->
 
+            <div class="controls">
+                <button id="button-destroy">Destroy</button>
+                <button id="button-rebuild">Rebuild</button>
+            </div><!-- end controls -->
 
         </div><!-- .main -->
 
@@ -107,6 +120,7 @@ $(".exampleD").hideShow({
 
         <!-- Plugin scripts -->
         <script src="gh-pages/js/vendor/jquery/1.10.2/jquery.min.js"></script>
+        <script src="gh-pages/js/vendor/jquery-smartresize/jquery.debouncedresize.js"></script>
         <script src="gh-pages/js/vendor/rainbow/rainbow.min.js"></script>
         <script src="gh-pages/js/vendor/rainbow/language/generic.js"></script>
         <script src="gh-pages/js/vendor/rainbow/language/javascript.js"></script>
@@ -137,7 +151,31 @@ $(".exampleD").hideShow({
                     triggerType: 'button',
                     continual: false,
                     breakpoint: 768,
-                    triggerElementClass: 'test'
+                    breakpointClass: 'desktop'
+                });
+
+                // Public API Examples
+                var demo = {};
+                demo.hideshow = $('.api-example').hideShow({
+                    speed: '600',
+                    state: 'hidden',
+                    triggerElement: true,
+                    triggerType: 'button',
+                    breakpoint: 768
+                });
+
+                $('#button-rebuild').attr('disabled', 'disabled');
+
+                $('#button-rebuild').click(function () {
+                    demo.hideshow.data('plugin_hideShow').rebuild();
+                    $(this).attr('disabled', 'disabled');
+                    $('#button-destroy').removeAttr('disabled');
+                });
+
+                $('#button-destroy').click(function () {
+                    demo.hideshow.data('plugin_hideShow').destroy();
+                    $('#button-rebuild').removeAttr('disabled');
+                    $(this).attr('disabled', 'disabled');
                 });
             });
         </script>

@@ -245,6 +245,23 @@ describe('hide-show', function () {
 
     });
 
+    describe('- plugin rebuild', function () {
+        it('should add a button to the target element when the rebuild function is called', function () {
+            testElement.hideShow();
+            var triggerElement,
+                wrapperElement;
+
+            triggerElement = testElement.siblings('.js-hide-show-btn');
+            wrapperElement = testElement.parent('.js-hide-show');
+
+            testElement.data('plugin_hideShow').destroy();
+            testElement.data('plugin_hideShow').rebuild();
+
+            expect(wrapperElement.hasClass('js-hide-show')).toBe(true);
+            expect(triggerElement.length).toBe(1);
+        });
+    });
+
     describe('- plugin destroy', function () {
 
         it('should unwrap the help content and remove the trigger element when destroyed', function () {
@@ -280,7 +297,7 @@ describe('hide-show', function () {
             testElement.hideShow();
 
             testElement.data('plugin_hideShow').destroy();
-            expect(testElement.attr('id')).toBe(undefined);
+            expect(testElement.attr('aria-expanded')).toBe(undefined);
         });
 
     });
