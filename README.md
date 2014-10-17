@@ -99,15 +99,26 @@ Description: The class for the content wrapper
 
 ### triggerType
 
-Type: `boolean`
-Default: 'false'
-Description: Defines whether the inserted triggerElement is a button or an anchor
+Type: `string`
+Default: 'button'
+Description: Defines whether the inserted triggerElement is a button or an anchor - options are 'button' or 'anchor'
 
 ### triggerElement
 
 Type: `boolean`
 Default: 'true'
 Description: Defines if the trigger element exists on the page or is inserted by the plugin
+
+### continual
+Type: `boolean`
+Default: 'true'
+Description: Defines if show/hide functionality is required constantly through mobile to desktop or just on mobile
+
+### breakpointClass
+Type:`string`
+Default: 'mobile'
+Description: Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
+
 
 ## Development
 
