@@ -3,7 +3,7 @@
  *
  * @description: Inserts an accessible buttons/links to hide and show sections of content
  * @source: https://github.com/nomensa/jquery.hide-show.git
- * @version: '0.1.3'
+ * @version: '0.1.4'
  *
  * @author: Nomensa
  * @license: licenced under MIT - http://opensource.org/licenses/mit-license.php
@@ -42,12 +42,18 @@
         containerClass: 'js-hide-show-content',
         // the class for the content wrapper
         wrapClass: 'js-hide-show',
-        // Define the trigger type as an anchor rather than a button - true is an anchor, false is a button
-        triggerType: false,
+        // Define the trigger type - options are 'button' and 'anchor'
+        triggerType: 'button',
         // Defines whether the triggerElement exists on the page or should be inserted dynamically
         triggerElement: false,
         // Defines the element to use as the triggerElement
-        triggerElementClass: 'title'
+        triggerElementClass: 'title',
+        // Defines if show/hide functionality is required constantly through mobile to desktop
+        continual: true,
+        // Breakpoint at which the show/hide functionality displays
+        breakpoint: 768,
+        // Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
+        breakpointClass: 'mobile'
 
     };
 
@@ -59,58 +65,76 @@
 
         self.element = $(element);
         self.options = $.extend({}, defaults, options);
+        self.triggerElementOriginal = self.element.find('.' + self.options.triggerElementClass);
 
         function init() {
         /*
             Create the button element, put a wrapper around the button and content, set initial state and set up event handlers
         */
-            var triggerElement = createTriggerElement(),
-                wrapper = createWrapper();
 
-            self.element.wrap(wrapper).before(triggerElement);
-            self.element.addClass(self.options.containerClass);
-            self.element.attr('id', (self.options.containerId + counter));
+            changeToBreakpoint();
 
+            $(window).on('debouncedresize', function() {
+                changeToBreakpoint();
 
-            if (self.options.state === 'hidden') {
-                self.element.addClass(self.options.hiddenClass).hide();
-                self.element.attr('aria-expanded', 'false');
-            } else {
-                self.element.addClass(self.options.visibleClass).show();
-                self.element.attr('aria-expanded', 'true');
-            }
-
-
-            $(triggerElement).click(function() {
-            /*
-                On click, show or hide the content based on its state
-            */
-                if (self.element.hasClass(self.options.visibleClass)) {
-                    self.element.slideUp(self.options.speed);
-                    self.element.removeClass(self.options.visibleClass);
-                    self.element.addClass(self.options.hiddenClass);
-                    self.element.attr('aria-expanded', 'false');
-
-                    if (!self.options.triggerElement) {
-                        $(triggerElement).removeClass(self.options.buttonExpandedClass);
-                        $(triggerElement).html(self.options.showText);
-                    }
+                if (self.element.hasClass(self.options.breakpointClass)) {
+                    self.destroy();
                 } else {
-                    self.element.slideDown(self.options.speed);
-                    self.element.removeClass(self.options.hiddenClass);
-                    self.element.addClass(self.options.visibleClass);
-                    self.element.attr('aria-expanded', 'true');
-
-                    if (!self.options.triggerElement) {
-                        $(triggerElement).addClass(self.options.buttonExpandedClass);
-                        $(triggerElement).html(self.options.hideText);
+                    if (!self.element.parent().hasClass(self.options.wrapClass)) {
+                        init();
                     }
                 }
-                return false;
             });
 
-            // Increment counter for unique ID's
-            counter++;
+            if (!self.element.hasClass(self.options.breakpointClass)) {
+                var triggerElement = createTriggerElement(),
+                    wrapper = createWrapper();
+
+
+                self.element.wrap(wrapper).before(triggerElement);
+
+                self.element.addClass(self.options.containerClass);
+                self.element.attr('id', (self.options.containerId + counter));
+
+                if (self.options.state === 'hidden') {
+                    self.element.addClass(self.options.hiddenClass).hide();
+                    self.element.attr('aria-expanded', 'false');
+                } else {
+                    self.element.addClass(self.options.visibleClass).show();
+                    self.element.attr('aria-expanded', 'true');
+                }
+
+                $(triggerElement).click(function() {
+                /*
+                    On click, show or hide the content based on its state
+                */
+                    if (self.element.hasClass(self.options.visibleClass)) {
+                        self.element.slideUp(self.options.speed);
+                        self.element.removeClass(self.options.visibleClass);
+                        self.element.addClass(self.options.hiddenClass);
+                        self.element.attr('aria-expanded', 'false');
+
+                        if (!self.options.triggerElement) {
+                            $(triggerElement).removeClass(self.options.buttonExpandedClass);
+                            $(triggerElement).html(self.options.showText);
+                        }
+                    } else {
+                        self.element.slideDown(self.options.speed);
+                        self.element.removeClass(self.options.hiddenClass);
+                        self.element.addClass(self.options.visibleClass);
+                        self.element.attr('aria-expanded', 'true');
+
+                        if (!self.options.triggerElement) {
+                            $(triggerElement).addClass(self.options.buttonExpandedClass);
+                            $(triggerElement).html(self.options.hideText);
+                        }
+                    }
+                    return false;
+                });
+
+                // Increment counter for unique ID's
+                counter++;
+            }
         }
 
         function createTriggerElement() {
@@ -118,24 +142,23 @@
             Create the button element that will hide or show the content
         */
             var triggerElement,
+                triggerElementNew,
                 attribute = self.options.containerId,
-                triggerElementOriginal,
                 triggerElementText;
 
             if (self.options.triggerElement) {
-                triggerElementOriginal = $('.' + self.options.triggerElementClass);
-                triggerElementText = triggerElementOriginal.text();
-
-                if (self.options.triggerType) {
-                    triggerElementOriginal.replaceWith('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
+                triggerElementText = self.triggerElementOriginal.text();
+                self.triggerElementOriginal.hide();
+                if (self.options.triggerType === 'anchor') {
+                    triggerElementNew = $('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
                 } else {
-                    triggerElementOriginal.replaceWith('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
+                    triggerElementNew = $('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
                 }
-                triggerElement = self.element.find('.' + self.options.buttonClass);
+                triggerElement = triggerElementNew;
 
 
             } else {
-                if (self.options.triggerType) {
+                if (self.options.triggerType === 'anchor') {
                     triggerElement = $(document.createElement('a'));
 
                     triggerElement.attr({
@@ -175,17 +198,48 @@
             return wrapper;
         }
 
+        function changeToBreakpoint() {
+        /*
+            React to a change in screen size breakpoint
+        */
+
+            var windowWidth = $(window).width();
+
+            if (!self.options.continual) {
+                if (windowWidth >= self.options.breakpoint) {
+                    self.element.addClass(self.options.breakpointClass);
+                } else {
+                    self.element.removeClass(self.options.breakpointClass);
+                }
+            }
+
+        }
+
         init();
     }
+
+     // PUBLIC API
+    ShowHide.prototype.rebuild = function() {
+    /*
+        rebuild the plugin and apply show/hide options
+    */
+        return new ShowHide(this.element, this.options);
+    };
 
 
     ShowHide.prototype.destroy = function () {
     /*
         Return the dom back to its initial state
     */
-        var self = this;
-        self.element.siblings('button').remove();
-        self.element.unwrap().show();
+        this.element.siblings('.' + this.options.buttonClass).remove();
+        $('.' + this.options.wrapClass).find(this.element).unwrap();
+        this.element.show();
+        this.element.removeClass(this.options.containerClass);
+        this.element.removeClass(this.options.hiddenClass);
+        this.element.removeClass(this.options.visibleClass);
+        this.element.removeAttr('aria-expanded');
+        this.element.removeAttr('id');
+        this.triggerElementOriginal.show();
     };
 
 

@@ -183,14 +183,14 @@ describe('hide-show', function () {
 
         it('should set the trigger element as a button', function () {
             testElement.hideShow({
-                triggerType: false
+                triggerType: 'button'
             });
             expect(testElement.siblings('button')).toBeDefined();
         });
 
         it('should set the trigger element as an anchor', function () {
             testElement.hideShow({
-                triggerType: true
+                triggerType: 'anchor'
             });
             expect(testElement.siblings('a')).toBeDefined();
             expect(testElement.siblings('a').attr('role')).toBe('button');
@@ -202,7 +202,7 @@ describe('hide-show', function () {
 
         it('should replace the chosen element with a trigger element (anchor)', function () {
             testElement2.hideShow({
-                triggerType: true,
+                triggerType: 'anchor',
                 triggerElement: true
             });
             expect(testElement2.siblings('a')).toBeDefined();
@@ -210,7 +210,7 @@ describe('hide-show', function () {
 
         it('should replace the chosen element with a trigger element (button)', function () {
             testElement2.hideShow({
-                triggerType: false,
+                triggerType: 'button',
                 triggerElement: true
             });
             expect(testElement2.siblings('button')).toBeDefined();
@@ -245,19 +245,59 @@ describe('hide-show', function () {
 
     });
 
+    describe('- plugin rebuild', function () {
+        it('should add a button to the target element when the rebuild function is called', function () {
+            testElement.hideShow();
+            var triggerElement,
+                wrapperElement;
+
+            triggerElement = testElement.siblings('.js-hide-show-btn');
+            wrapperElement = testElement.parent('.js-hide-show');
+
+            testElement.data('plugin_hideShow').destroy();
+            testElement.data('plugin_hideShow').rebuild();
+
+            expect(wrapperElement.hasClass('js-hide-show')).toBe(true);
+            expect(triggerElement.length).toBe(1);
+        });
+    });
+
     describe('- plugin destroy', function () {
 
         it('should unwrap the help content and remove the trigger element when destroyed', function () {
             testElement.hideShow();
-            var sibling;
-                parent;
+            var triggerElement,
+                wrapperElement;
 
             testElement.data('plugin_hideShow').destroy();
-            sibling = testElement.siblings('button');
-            parent = testElement.parent('.content-wrap');
+            triggerElement = testElement.siblings('.js-hide-show-btn');
+            wrapperElement = testElement.parent('.content-wrap');
 
-            expect(sibling.length).toBe(0);
-            expect(parent.length).toBe(0);
+            expect(triggerElement.length).toBe(0);
+            expect(wrapperElement.length).toBe(0);
+        });
+
+        it('should remove user specific classes from the element', function () {
+            testElement.hideShow();
+
+            testElement.data('plugin_hideShow').destroy();
+            expect(testElement.hasClass('js-hide-show-content')).toBe(false);
+            expect(testElement.hasClass('hidden')).toBe(false);
+            expect(testElement.hasClass('visible')).toBe(false);
+        });
+
+        it('should remove aria-expanded from the element', function () {
+            testElement.hideShow();
+
+            testElement.data('plugin_hideShow').destroy();
+            expect(testElement.attr('aria-expanded')).toBe(undefined);
+        });
+
+        it('should remove the inserted id from the element', function () {
+            testElement.hideShow();
+
+            testElement.data('plugin_hideShow').destroy();
+            expect(testElement.attr('aria-expanded')).toBe(undefined);
         });
 
     });
