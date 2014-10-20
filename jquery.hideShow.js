@@ -3,7 +3,7 @@
  *
  * @description: Inserts an accessible buttons/links to hide and show sections of content
  * @source: https://github.com/nomensa/jquery.hide-show.git
- * @version: '0.2.0'
+ * @version: '0.2.1'
  *
  * @author: Nomensa
  * @license: licenced under MIT - http://opensource.org/licenses/mit-license.php
@@ -26,6 +26,8 @@
         buttonClass: 'js-hide-show-btn',
         // the string used for the ID to target the button
         buttonId: 'btn-control-',
+        // the class name applied to the button when element is collapsed
+        buttonCollapsedClass: 'js-hide-show-btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show-btn--expanded',
         // the speed applied to the transition when displaying the element
@@ -113,9 +115,10 @@
                         self.element.removeClass(self.options.visibleClass);
                         self.element.addClass(self.options.hiddenClass);
                         self.element.attr('aria-expanded', 'false');
+                        $(triggerElement).addClass(self.options.buttonCollapsedClass);
+                        $(triggerElement).removeClass(self.options.buttonExpandedClass);
 
                         if (!self.options.triggerElement) {
-                            $(triggerElement).removeClass(self.options.buttonExpandedClass);
                             $(triggerElement).html(self.options.showText);
                         }
                     } else {
@@ -123,9 +126,10 @@
                         self.element.removeClass(self.options.hiddenClass);
                         self.element.addClass(self.options.visibleClass);
                         self.element.attr('aria-expanded', 'true');
+                        $(triggerElement).addClass(self.options.buttonExpandedClass);
+                        $(triggerElement).removeClass(self.options.buttonCollapsedClass);
 
                         if (!self.options.triggerElement) {
-                            $(triggerElement).addClass(self.options.buttonExpandedClass);
                             $(triggerElement).html(self.options.hideText);
                         }
                     }
@@ -155,8 +159,6 @@
                     triggerElementNew = $('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
                 }
                 triggerElement = triggerElementNew;
-
-
             } else {
                 if (self.options.triggerType === 'anchor') {
                     triggerElement = $(document.createElement('a'));
@@ -180,9 +182,13 @@
                     $(triggerElement).html(self.options.showText);
                 } else {
                     $(triggerElement).html(self.options.hideText);
-
-                    triggerElement.addClass(self.options.buttonExpandedClass);
                 }
+            }
+
+            if (self.options.state === 'hidden') {
+                $(triggerElement).addClass(self.options.buttonCollapsedClass);
+            } else {
+                $(triggerElement).addClass(self.options.buttonExpandedClass);
             }
 
             return triggerElement;

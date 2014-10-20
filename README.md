@@ -50,11 +50,17 @@ Type: `string`
 Default: 'btn-control-'
 Description: The ID used to target the button
 
+### buttonCollapsedClass
+
+Type: `string`
+Default: 'js-hide-show-btn--collapsed'
+Description: The class name applied to the button when the element is collapsed
+
 ### buttonExpandedClass
 
 Type: `string`
 Default: 'js-hide-show-btn--expanded'
-Description: The class name applied to the button when element is expanded
+Description: The class name applied to the button when the element is expanded
 
 ### speed
 

@@ -215,7 +215,6 @@ describe('hide-show', function () {
             });
             expect(testElement2.siblings('button')).toBeDefined();
         });
-
     });
 
     describe('- click function', function () {
