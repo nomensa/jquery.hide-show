@@ -93,9 +93,13 @@
                 var triggerElement = createTriggerElement(),
                     wrapper = createWrapper();
 
-                self.element.wrap(wrapper).before(triggerElement);
+                // If the trigger doesn't already exist
+                if (!self.options.triggerTargetEl) {
+                    // Add the trigger
+                    self.element.wrap(wrapper).before(triggerElement);
+                    self.element.addClass(self.options.containerClass);
+                }
 
-                self.element.addClass(self.options.containerClass);
                 self.element.attr('id', (self.options.containerId + counter));
 
                 if (self.options.state === 'hidden') {
