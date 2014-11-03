@@ -95,15 +95,78 @@ $(".exampleD").hideShow({
 </code>
 </pre>
 
-        <h2>Example E</h2>
-        <p>With existing trigger</p>
-
         <a href="#" class="target-el">Existing trigger element</a>
         <div class="exampleE">
             <div class="row">
                 <p>Etiam tincidunt lobortis posuere? Sed convallis malesuada turpis, vel auctor lacus lacinia eget. Mauris tincidunt leo ut est lacinia porttitor. Nulla gravida, nisi sed vestibulum facilisis, sem ante luctus ligula, id viverra libero velit eu orci? Aliquam non bibendum massa. Duis ornare tellus sagittis ante bibendum dapibus. Donec pulvinar quis lorem eu dictum. Cu</p>
             </div><!-- end .row -->
         </div><!-- end .exampleD -->
+
+
+
+        <h2>Example E</h2>
+        <p>With existing trigger</p>
+
+
+
+
+
+
+<header class="header {$modifiers}" role="banner">
+    <div class="header_container cf">
+        <a href="#anchor--main" class="skip-link">Skip to content</a>
+        <a href="/" class="header_logo">
+            <img src="../assets/img/npower_logo.png" alt="Home" />
+        </a><!-- .header_logo -->
+        <div class="header_actions">
+            <ul>
+                <li><a class="btn btn--search" href="#"><span class="hide">Search</span></a></li>
+                <li><a class="btn btn--primary btn--slim btn--lock" href="#"><span>Login</span></a></li>
+            </ul>
+        </div><!-- .header_actions -->
+        <nav class="navigation" role="navigation">
+            <h2 class="hide">Main navigiation</h2>
+            <ul>
+                <li class="sibling">
+                    <a href="#">Brand story</a>
+                </li>
+                <li class="selected">
+                    <a href="#">Brand elements</a>
+                </li>
+                <li class="sibling">
+                    <a href="#">Guidelines</a>
+                </li>
+                <li class="sibling">
+                    <a href="#">Support</a>
+                </li>
+            </ul>
+        </nav><!-- .navigation -->
+    </div> <!-- .header_container -->
+    <div class="global-search">
+        <div class="global-search_container">
+            <div class="form-row">
+                <label class="hide" for="text">Lorem ipsum</label>
+                <input id="text" type="text" name="text" placeholder="Lorem ipsum"/>
+            </div><!-- .form-row -->
+            <div class="form-row">
+               <label class="hide" for="select-1">Lorem ipsum</label>
+               <select id="select-1" name=""></select>
+            </div><!-- .form-row -->
+            <div class="form-row">
+                <button class="btn btn--primary btn--slim"><span>Lorem</span></button>
+            </div><!-- .form-row -->
+        </div>
+    </div><!-- .global-search -->
+</header><!-- .header -->
+
+
+
+
+
+
+
+
+
             <h3>Initialisation</h3>
 <pre>
 <code data-language="javascript">
@@ -174,9 +237,9 @@ $(".exampleE").hideShow({
                     breakpointClass: 'desktop'
                 });
 
-                $(".exampleE").hideShow({
+                $(".global-search").hideShow({
                     triggerElement: true,
-                    triggerTargetEl: '.target-el',
+                    triggerTargetEl: '.btn--search',
                     triggerType: 'button'
                 });
 

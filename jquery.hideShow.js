@@ -122,7 +122,7 @@
                         $(triggerElement).addClass(self.options.buttonCollapsedClass);
                         $(triggerElement).removeClass(self.options.buttonExpandedClass);
 
-                        if (!self.options.triggerElement) {
+                        if (!self.options.triggerElement || self.options.triggerTargetEl) {
                             $(triggerElement).html(self.options.showText);
                         }
                     } else {
@@ -133,7 +133,7 @@
                         $(triggerElement).addClass(self.options.buttonExpandedClass);
                         $(triggerElement).removeClass(self.options.buttonCollapsedClass);
 
-                        if (!self.options.triggerElement) {
+                        if (!self.options.triggerElement || self.options.triggerTargetEl) {
                             $(triggerElement).html(self.options.hideText);
                         }
                     }
@@ -161,7 +161,6 @@
                     triggerElement = $(self.options.triggerTargetEl);
 
                     triggerElement.attr({
-                        'class': self.options.buttonClass,
                         'id': self.options.buttonId + counter,
                         'aria-owns': attribute + counter,
                         'aria-controls': attribute + counter
