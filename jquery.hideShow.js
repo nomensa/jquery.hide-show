@@ -55,8 +55,9 @@
         // Breakpoint at which the show/hide functionality displays
         breakpoint: 768,
         // Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
-        breakpointClass: 'mobile'
-
+        breakpointClass: 'mobile',
+        // The trigger element selector. Relies on 'triggerElement' to be true.
+        triggerTargetEl: false
     };
 
     function ShowHide(element, options) {
@@ -91,7 +92,6 @@
             if (!self.element.hasClass(self.options.breakpointClass)) {
                 var triggerElement = createTriggerElement(),
                     wrapper = createWrapper();
-
 
                 self.element.wrap(wrapper).before(triggerElement);
 
@@ -151,14 +151,35 @@
                 triggerElementText;
 
             if (self.options.triggerElement) {
-                triggerElementText = self.triggerElementOriginal.text();
-                self.triggerElementOriginal.hide();
-                if (self.options.triggerType === 'anchor') {
-                    triggerElementNew = $('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
+
+                // If the trigger already exists on the page
+                if (self.options.triggerTargetEl) {
+                    triggerElement = $(self.options.triggerTargetEl);
+
+                    triggerElement.attr({
+                        'class': self.options.buttonClass,
+                        'id': self.options.buttonId + counter,
+                        'aria-owns': attribute + counter,
+                        'aria-controls': attribute + counter
+                    });
+
+                    if (self.options.state === 'hidden') {
+                        $(triggerElement).html(self.options.showText);
+                    } else {
+                        $(triggerElement).html(self.options.hideText);
+                    }
+
                 } else {
-                    triggerElementNew = $('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
+                    triggerElementText = self.triggerElementOriginal.text();
+                    self.triggerElementOriginal.hide();
+
+                    if (self.options.triggerType === 'anchor') {
+                        triggerElementNew = $('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
+                    } else {
+                        triggerElementNew = $('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
+                    }
                 }
-                triggerElement = triggerElementNew;
+
             } else {
                 if (self.options.triggerType === 'anchor') {
                     triggerElement = $(document.createElement('a'));
@@ -192,7 +213,6 @@
             }
 
             return triggerElement;
-
         }
 
         function createWrapper() {

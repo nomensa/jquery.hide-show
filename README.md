@@ -125,6 +125,10 @@ Type:`string`
 Default: 'mobile'
 Description: Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
 
+### triggerTargetEl
+Type: `string`
+Default: false
+Description: If a trigger exists in the page this option allows the plugin to target it. Relies on 'triggerElement' to be true.
 
 ## Development
 
