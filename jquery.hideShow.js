@@ -83,7 +83,7 @@
                 if (self.element.hasClass(self.options.breakpointClass)) {
                     self.destroy();
                 } else {
-                    if (!self.element.parent().hasClass(self.options.wrapClass)) {
+                    if (!self.options.triggerTargetEl && !self.element.parent().hasClass(self.options.wrapClass)) {
                         init();
                     }
                 }
