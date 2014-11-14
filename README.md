@@ -22,106 +22,108 @@ Then it's just a case of including the following scripts on your page, best at t
 
 ### hiddenClass
 
-Type: `string`
-Default: 'hidden'
+Type: `string`  
+Default: 'hidden'  
 Description: The class which is added to the content when it is hidden
 
 ### visibleClass
 
-Type: `string`
-Default: 'visible'
+Type: `string`  
+Default: 'visible'  
 Descritpion: The class which is added to the content when it is visible
 
 ### buttonClass
 
-Type: `string`
-Default: 'js-hide-show-btn'
+Type: `string`  
+Default: 'js-hide-show-btn'  
 Description: The class which is added to the button for styling purposes
 
 ### buttonHelperClass
 
-Type `string`
-Default 'hide'
+Type `string`  
+Default 'hide'  
 Description: The class which is added to the element inside the button. Can be used to hide text off screen if needed
 
 ### buttonId
 
-Type: `string`
-Default: 'btn-control-'
+Type: `string`  
+Default: 'btn-control-'  
 Description: The ID used to target the button
 
 ### buttonCollapsedClass
 
-Type: `string`
-Default: 'js-hide-show-btn--collapsed'
+Type: `string`  
+Default: 'js-hide-show-btn--collapsed'  
 Description: The class name applied to the button when the element is collapsed
 
 ### buttonExpandedClass
 
-Type: `string`
-Default: 'js-hide-show-btn--expanded'
+Type: `string`  
+Default: 'js-hide-show-btn--expanded'  
 Description: The class name applied to the button when the element is expanded
 
 ### speed
 
-Type: `string` or `number`
-Default: 'slow'
+Type: `string` or `number`  
+Default: 'slow'  
 Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
 
 ### showText
 
-Type: `string`
-Default: 'Show Content'
+Type: `string`  
+Default: 'Show Content'  
 Description: The text for the button that shows the content
 
 ### hideText
 
-Type: `string`
-Default: 'Hide Content'
+Type: `string`  
+Default: 'Hide Content'  
 Description: The text for the button that hides the content
 
 ### state
-Type: `string`
-Default: 'shown'
+Type: `string`  
+Default: 'shown'  
 Description: Sets whether the element is hidden or shown by default, options are 'hidden' and 'shown'
 
 ### containerId
 
-Type: `string`
-Default: 'content'
+Type: `string`  
+Default: 'content'  
 Description: The id for the element to be hidden/shown
 
 ### containerClass
 
-Type: `string`
-Default: 'js-hide-show-content'
+Type: `string`  
+Default: 'js-hide-show-content'  
 Description: The class for the element to be hidden/shown
 
 ### wrapClass
 
-Type: `string`
-Default: 'content-wrap'
+Type: `string`  
+Default: 'content-wrap'  
 Description: The class for the content wrapper
 
 ### triggerType
 
-Type: `string`
-Default: 'button'
+Type: `string`  
+Default: 'button'  
 Description: Defines whether the inserted triggerElement is a button or an anchor - options are 'button' or 'anchor'
 
 ### triggerElement
 
-Type: `boolean`
-Default: 'true'
+Type: `boolean`  
+Default: 'true'  
 Description: Defines if the trigger element exists on the page or is inserted by the plugin
 
 ### continual
-Type: `boolean`
-Default: 'true'
+
+Type: `boolean`  
+Default: 'true'  
 Description: Defines if show/hide functionality is required constantly through mobile to desktop or just on mobile
 
 ### breakpointClass
-Type:`string`
+
+Type:`string`  
 Default: 'mobile'
 Description: Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
 
