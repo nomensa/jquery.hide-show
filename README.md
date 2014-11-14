@@ -124,7 +124,7 @@ Description: Defines if show/hide functionality is required constantly through m
 ### breakpointClass
 
 Type:`string`  
-Default: 'mobile'
+Default: 'mobile'  
 Description: Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
 
 
