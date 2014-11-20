@@ -57,7 +57,9 @@
         // Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
         breakpointClass: 'mobile',
         // The trigger element selector. Relies on 'triggerElement' to be true.
-        triggerTargetEl: false
+        triggerTargetEl: false,
+        // A class that represents whether the plugin has been initialised
+        activeClass: 'js-hide-show--active'
     };
 
     function ShowHide(element, options) {
@@ -83,7 +85,7 @@
                 if (self.element.hasClass(self.options.breakpointClass)) {
                     self.destroy();
                 } else {
-                    if (!self.options.triggerTargetEl && !self.element.parent().hasClass(self.options.wrapClass)) {
+                    if (!self.element.hasClass(self.options.activeClass)) {
                         init();
                     }
                 }
@@ -92,6 +94,8 @@
             if (!self.element.hasClass(self.options.breakpointClass)) {
                 var triggerElement = createTriggerElement(),
                     wrapper = createWrapper();
+
+                self.element.addClass(self.options.activeClass);
 
                 // If the trigger doesn't already exist
                 if (!self.options.triggerTargetEl) {
@@ -265,9 +269,14 @@
         this.element.siblings('.' + this.options.buttonClass).remove();
         $('.' + this.options.wrapClass).find(this.element).unwrap();
         this.element.show();
+        // Remove the container class
         this.element.removeClass(this.options.containerClass);
+        // Remove the hidden class
         this.element.removeClass(this.options.hiddenClass);
+        // Remove the visible class
         this.element.removeClass(this.options.visibleClass);
+        // Remove the initialised class
+        this.element.removeClass(this.options.activeClass);
         this.element.removeAttr('aria-expanded');
         this.element.removeAttr('id');
         this.triggerElementOriginal.show();
