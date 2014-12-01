@@ -25,45 +25,23 @@
                 Text content to be hidden text content to be hidden text content to be hidden text content to be hidden
             </div><!-- .exampleA -->
             <h3>Initialisation</h3>
-            <pre>
+<pre>
 <code data-language="javascript">
 $(".exampleA").hideShow();
-</code>
-</pre>
-
-            <h2>Example B</h2>
-            <p>Example of the hide/show plugin with customised options. The content should be hidden by default.</p>
-            <div class="exampleB">
-                <form>
-                    <label>Search </label>
-                    <input type="search" />
-                    <input class="submit" type="submit" value="Search" />
-                </form>
-            </div><!-- .exampleB -->
-            <h3>Initialisation</h3>
-            <pre>
-<code data-language="javascript">
-$(".exampleB").hideShow({
-    speed: '600',
-    showText: 'Expand Search',
-    hideText: 'Collapse Search',
-    state: 'hidden',
-    triggerElement: true
-});
 </code>
 </pre>
 
         <h2>Example C</h2>
         <p>Example showing an existing element on the page converted to a trigger element for the hide/show content.</p>
 
-        <div class="exampleC">
+        <div class="exampleB">
             <div class="row">
                 <h2 class="title">Can't find your doctor?</h2>
                 <p class="a">Please call 01234 567 890.</p>
             </div><!-- end .row -->
         </div><!-- end .exampleC -->
-            <h3>Initialisation</h3>
-            <pre>
+        <h3>Initialisation</h3>
+<pre>
 <code data-language="javascript">
 $(".exampleC").hideShow({
     speed: '600',
@@ -73,43 +51,6 @@ $(".exampleC").hideShow({
 });
 </code>
 </pre>
-
-        <h2>Example D</h2>
-        <p>Example showing how the show/hide functionality displays on mobile but not desktop.</p>
-
-        <div class="exampleD">
-            <div class="row">
-                <h2 class="title">Show my content</h2>
-                <p>Etiam tincidunt lobortis posuere? Sed convallis malesuada turpis, vel auctor lacus lacinia eget. Mauris tincidunt leo ut est lacinia porttitor. Nulla gravida, nisi sed vestibulum facilisis, sem ante luctus ligula, id viverra libero velit eu orci? Aliquam non bibendum massa. Duis ornare tellus sagittis ante bibendum dapibus. Donec pulvinar quis lorem eu dictum. Cu</p>
-            </div><!-- end .row -->
-        </div><!-- end .exampleD -->
-            <h3>Initialisation</h3>
-<pre>
-<code data-language="javascript">
-$(".exampleD").hideShow({
-    speed: '600',
-    state: 'hidden',
-    triggerElement: true,
-    triggerType: 'button'
-});
-</code>
-</pre>
-
-           <h2>Public API Examples</h2>
-            <div class="api-examples">
-                <div class="api-example">
-                    <div class="row">
-                        <h2 class="title">Show my content</h2>
-                        <p>Etiam tincidunt lobortis posuere? Sed convallis malesuada turpis, vel auctor lacus lacinia eget. Mauris tincidunt leo ut est lacinia porttitor. Nulla gravida, nisi sed vestibulum facilisis, sem ante luctus ligula, id viverra libero velit eu orci? Aliquam non bibendum massa. Duis ornare tellus sagittis ante bibendum dapibus. Donec pulvinar quis lorem eu dictum. Cu</p>
-                    </div><!-- end .row -->
-                </div><!-- end api-example -->
-            </div><!-- .api-examples -->
-
-            <div class="controls">
-                <button id="button-destroy">Destroy</button>
-                <button id="button-rebuild">Rebuild</button>
-            </div><!-- end controls -->
-
         </div><!-- .main -->
 
         <div class="footer">
@@ -120,7 +61,6 @@ $(".exampleD").hideShow({
 
         <!-- Plugin scripts -->
         <script src="gh-pages/js/vendor/jquery/1.10.2/jquery.min.js"></script>
-        <script src="gh-pages/js/vendor/jquery-smartresize/jquery.debouncedresize.js"></script>
         <script src="gh-pages/js/vendor/rainbow/rainbow.min.js"></script>
         <script src="gh-pages/js/vendor/rainbow/language/generic.js"></script>
         <script src="gh-pages/js/vendor/rainbow/language/javascript.js"></script>
@@ -131,51 +71,9 @@ $(".exampleD").hideShow({
 
                 $(".exampleB").hideShow({
                     speed: '600',
-                    showText: 'Expand Search',
-                    hideText: 'Collapse Search',
-                    state: 'hidden',
-                    triggerType: 'anchor'
-                });
-
-                $(".exampleC").hideShow({
-                    speed: '600',
                     state: 'hidden',
                     triggerElement: true,
                     triggerType: 'button'
-                });
-
-                $(".exampleD").hideShow({
-                    speed: '600',
-                    state: 'hidden',
-                    triggerElement: true,
-                    triggerType: 'button',
-                    continual: false,
-                    breakpoint: 768,
-                    breakpointClass: 'desktop'
-                });
-
-                // Public API Examples
-                var demo = {};
-                demo.hideshow = $('.api-example').hideShow({
-                    speed: '600',
-                    state: 'hidden',
-                    triggerElement: true,
-                    triggerType: 'button',
-                    breakpoint: 768
-                });
-
-                $('#button-rebuild').attr('disabled', 'disabled');
-
-                $('#button-rebuild').click(function () {
-                    demo.hideshow.data('plugin_hideShow').rebuild();
-                    $(this).attr('disabled', 'disabled');
-                    $('#button-destroy').removeAttr('disabled');
-                });
-
-                $('#button-destroy').click(function () {
-                    demo.hideshow.data('plugin_hideShow').destroy();
-                    $('#button-rebuild').removeAttr('disabled');
-                    $(this).attr('disabled', 'disabled');
                 });
             });
         </script>

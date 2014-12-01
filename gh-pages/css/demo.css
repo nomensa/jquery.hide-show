@@ -7,7 +7,7 @@
  */
 
 .js-hide-show,
-.js-hide-show-content {
+.js-hide-show_btn {
     margin: 1em 0;
 }
 
@@ -18,7 +18,7 @@
     border-radius: 10px;
 }
 
-.js-hide-show-btn,
+.js-hide-show_btn,
 .submit {
     padding: 6px 1em;
     background: rgb(255,255,255); /* Old browsers */

@@ -67,17 +67,6 @@ describe('hide-show', function () {
             expect(testElement.siblings('button').attr('id')).toContain('testControl');
         });
 
-        it('should set an aria-owns attribute on the button', function () {
-            testElement.hideShow();
-            expect(testElement.siblings('button').attr('aria-owns')).toBeDefined();
-        });
-
-        it('should set an aria-owns attribute to be associated with the relevant content', function () {
-            testElement.hideShow();
-            var id = testElement.attr('id');
-            expect(testElement.siblings('button').attr('aria-owns')).toBe(id);
-        });
-
         it('should set an aria-controls attribute on the button', function () {
             testElement.hideShow();
             expect(testElement.siblings('button').attr('aria-controls')).toBeDefined();
@@ -108,7 +97,7 @@ describe('hide-show', function () {
 
         it('should set the default aria-expanded attribute value to true if the state is set to "shown"', function () {
             testElement.hideShow();
-            expect(testElement.attr('aria-expanded')).toBe('true');
+            expect(testElement.siblings('.js-hide-show-btn').attr('aria-expanded')).toBe('true');
         });
 
         it('should not show the content by default if the state is set to "hidden"', function () {
@@ -122,7 +111,7 @@ describe('hide-show', function () {
             testElement.hideShow({
                 state: 'hidden'
             });
-            expect(testElement.attr('aria-expanded')).toBe('false');
+            expect(testElement.siblings('.js-hide-show-btn').attr('aria-expanded')).toBe('false');
         });
 
         it('should set the text used for the hide button', function () {
@@ -236,10 +225,10 @@ describe('hide-show', function () {
         it('- should toggle the aria-expanded attribute when the button is clicked depending on the state of the content', function () {
             var button = testElement.siblings('button');
             button.trigger('click');
-            expect(testElement.attr('aria-expanded')).toBe('false');
+            expect(button.attr('aria-expanded')).toBe('false');
             button.trigger('click');
             expect(jQuery.fn.slideUp).toHaveBeenCalled();
-            expect(testElement.attr('aria-expanded')).toBe('true');
+            expect(button.attr('aria-expanded')).toBe('true');
         });
 
     });
@@ -289,14 +278,14 @@ describe('hide-show', function () {
             testElement.hideShow();
 
             testElement.data('plugin_hideShow').destroy();
-            expect(testElement.attr('aria-expanded')).toBe(undefined);
+            expect(testElement.siblings('.js-hide-show-btn').attr('aria-expanded')).toBe(undefined);
         });
 
         it('should remove the inserted id from the element', function () {
             testElement.hideShow();
 
             testElement.data('plugin_hideShow').destroy();
-            expect(testElement.attr('aria-expanded')).toBe(undefined);
+            expect(testElement.siblings('.js-hide-show-btn').attr('aria-expanded')).toBe(undefined);
         });
 
     });

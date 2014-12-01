@@ -49,14 +49,7 @@
         // Defines whether the triggerElement exists on the page or should be inserted dynamically
         triggerElement: false,
         // Defines the element to use as the triggerElement
-        triggerElementClass: 'title',
-        // Defines if show/hide functionality is required constantly through mobile to desktop
-        continual: true,
-        // Breakpoint at which the show/hide functionality displays
-        breakpoint: 768,
-        // Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
-        breakpointClass: 'mobile'
-
+        triggerElementClass: 'title'
     };
 
     function ShowHide(element, options) {
@@ -74,71 +67,57 @@
             Create the button element, put a wrapper around the button and content, set initial state and set up event handlers
         */
 
-            changeToBreakpoint();
+            var triggerElement = createTriggerElement(),
+                wrapper = createWrapper();
 
-            $(window).on('debouncedresize', function() {
-                changeToBreakpoint();
 
-                if (self.element.hasClass(self.options.breakpointClass)) {
-                    self.destroy();
+            self.element.wrap(wrapper).before(triggerElement);
+
+            self.element.addClass(self.options.containerClass);
+            self.element.attr('id', (self.options.containerId + counter));
+
+            if (self.options.state === 'hidden') {
+                self.element.addClass(self.options.hiddenClass).hide();
+                triggerElement.attr('aria-expanded', 'false');
+            } else {
+                self.element.addClass(self.options.visibleClass).show();
+                triggerElement.attr('aria-expanded', 'true');
+            }
+
+            $(triggerElement).click(function() {
+            /*
+                On click, show or hide the content based on its state
+            */
+                if (self.element.hasClass(self.options.visibleClass)) {
+                    self.element.slideUp(self.options.speed);
+                    self.element.removeClass(self.options.visibleClass);
+                    self.element.addClass(self.options.hiddenClass);
+                    triggerElement
+                        .attr('aria-expanded', 'false')
+                        .addClass(self.options.buttonCollapsedClass)
+                        .removeClass(self.options.buttonExpandedClass);
+
+                    if (!self.options.triggerElement) {
+                        $(triggerElement).html(self.options.showText);
+                    }
                 } else {
-                    if (!self.element.parent().hasClass(self.options.wrapClass)) {
-                        init();
+                    self.element.slideDown(self.options.speed);
+                    self.element.removeClass(self.options.hiddenClass);
+                    self.element.addClass(self.options.visibleClass);
+                    triggerElement
+                        .attr('aria-expanded', 'true')
+                        .addClass(self.options.buttonExpandedClass)
+                        .removeClass(self.options.buttonCollapsedClass);
+
+                    if (!self.options.triggerElement) {
+                        $(triggerElement).html(self.options.hideText);
                     }
                 }
+                return false;
             });
 
-            if (!self.element.hasClass(self.options.breakpointClass)) {
-                var triggerElement = createTriggerElement(),
-                    wrapper = createWrapper();
-
-
-                self.element.wrap(wrapper).before(triggerElement);
-
-                self.element.addClass(self.options.containerClass);
-                self.element.attr('id', (self.options.containerId + counter));
-
-                if (self.options.state === 'hidden') {
-                    self.element.addClass(self.options.hiddenClass).hide();
-                    self.element.attr('aria-expanded', 'false');
-                } else {
-                    self.element.addClass(self.options.visibleClass).show();
-                    self.element.attr('aria-expanded', 'true');
-                }
-
-                $(triggerElement).click(function() {
-                /*
-                    On click, show or hide the content based on its state
-                */
-                    if (self.element.hasClass(self.options.visibleClass)) {
-                        self.element.slideUp(self.options.speed);
-                        self.element.removeClass(self.options.visibleClass);
-                        self.element.addClass(self.options.hiddenClass);
-                        self.element.attr('aria-expanded', 'false');
-                        $(triggerElement).addClass(self.options.buttonCollapsedClass);
-                        $(triggerElement).removeClass(self.options.buttonExpandedClass);
-
-                        if (!self.options.triggerElement) {
-                            $(triggerElement).html(self.options.showText);
-                        }
-                    } else {
-                        self.element.slideDown(self.options.speed);
-                        self.element.removeClass(self.options.hiddenClass);
-                        self.element.addClass(self.options.visibleClass);
-                        self.element.attr('aria-expanded', 'true');
-                        $(triggerElement).addClass(self.options.buttonExpandedClass);
-                        $(triggerElement).removeClass(self.options.buttonCollapsedClass);
-
-                        if (!self.options.triggerElement) {
-                            $(triggerElement).html(self.options.hideText);
-                        }
-                    }
-                    return false;
-                });
-
-                // Increment counter for unique ID's
-                counter++;
-            }
+            // Increment counter for unique ID's
+            counter++;
         }
 
         function createTriggerElement() {
@@ -156,7 +135,7 @@
                 if (self.options.triggerType === 'anchor') {
                     triggerElementNew = $('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
                 } else {
-                    triggerElementNew = $('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-owns="' + attribute + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
+                    triggerElementNew = $('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
                 }
                 triggerElement = triggerElementNew;
             } else {
@@ -174,7 +153,6 @@
                 triggerElement.attr({
                     'class': self.options.buttonClass,
                     'id': self.options.buttonId + counter,
-                    'aria-owns': attribute + counter,
                     'aria-controls': attribute + counter
                 });
 
@@ -202,23 +180,6 @@
             var wrapper = $(document.createElement('div'));
             wrapper.attr('class', self.options.wrapClass);
             return wrapper;
-        }
-
-        function changeToBreakpoint() {
-        /*
-            React to a change in screen size breakpoint
-        */
-
-            var windowWidth = $(window).width();
-
-            if (!self.options.continual) {
-                if (windowWidth >= self.options.breakpoint) {
-                    self.element.addClass(self.options.breakpointClass);
-                } else {
-                    self.element.removeClass(self.options.breakpointClass);
-                }
-            }
-
         }
 
         init();
