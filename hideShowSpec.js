@@ -60,13 +60,6 @@ describe('hide-show', function () {
             expect(testElement.siblings('button').hasClass('js-hide-show-btn')).toBe(true);
         });
 
-        it('should add an ID with a user defined string to the button', function () {
-            testElement.hideShow({
-                buttonId: 'testControl'
-            });
-            expect(testElement.siblings('button').attr('id')).toContain('testControl');
-        });
-
         it('should set an aria-controls attribute on the button', function () {
             testElement.hideShow();
             expect(testElement.siblings('button').attr('aria-controls')).toBeDefined();
@@ -92,7 +85,7 @@ describe('hide-show', function () {
             testElement.hideShow({
                 state: 'shown'
             });
-            expect(testElement.hasClass('visible')).toBe(true);
+            expect(testElement.hasClass('js-hide-show_content--expanded')).toBe(true);
         });
 
         it('should set the default aria-expanded attribute value to true if the state is set to "shown"', function () {
@@ -138,8 +131,8 @@ describe('hide-show', function () {
 
         it('should remove the hidden class from the content and add a visible class to it when the button is clicked', function () {
             testElement.hideShow({
-                visibleClass: 'content-visible',
-                hiddenClass: 'content-hidden'
+                containerExpandedClass: 'content-visible',
+                containerCollapsedClass: 'content-hidden'
             });
             testElement.siblings('button').trigger('click');
             testElement.siblings('button').trigger('click');
@@ -149,8 +142,8 @@ describe('hide-show', function () {
 
         it('should remove the visible class from the content and add a hidden class to it when the button is clicked', function () {
             testElement.hideShow({
-                visibleClass: 'content-visible',
-                hiddenClass: 'content-hidden'
+                containerExpandedClass: 'content-visible',
+                containerCollapsedClass: 'content-hidden'
             });
             testElement.siblings('button').trigger('click');
             expect(testElement.hasClass('content-visible')).toBe(false);

@@ -18,38 +18,36 @@
 
     pluginName = 'hideShow';
     defaults = {
-        // the class name applied to the hidden element
-        hiddenClass: 'hidden',
-        // the class name applied to the visible element
-        visibleClass: 'visible',
         // the class name applied to the hide/show trigger element
         buttonClass: 'js-hide-show-btn',
-        // the string used for the ID to target the button
-        buttonId: 'btn-control-',
         // the class name applied to the button when element is collapsed
         buttonCollapsedClass: 'js-hide-show-btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show-btn--expanded',
-        // the speed applied to the transition when displaying the element
-        speed: 'slow',
-        // the text to apply to the button/link phrase for the trigger element when hidden
-        showText: 'Show Content',
-        // the text to apply to the button/link phrase for the trigger element when visible
-        hideText: 'Hide Content',
-        // whether the element is hidden or shown by default, options are 'hidden' and 'shown'
-        state: 'shown',
-        // Identifier for the target content
-        containerId: 'content-',
         // A class applied to the target element
         containerClass: 'js-hide-show-content',
-        // the class for the content wrapper
-        wrapClass: 'js-hide-show',
+        // the class name applied to the hidden element
+        containerCollapsedClass: 'js-hide-show_content--collapsed',
+        // the class name applied to the visible element
+        containerExpandedClass: 'js-hide-show_content--expanded',
+        // the text to apply to the button/link phrase for the trigger element when visible
+        hideText: 'Hide Content',
+        // the text to apply to the button/link phrase for the trigger element when hidden
+        showText: 'Show Content',
+        // the speed applied to the transition when displaying the element
+        speed: 'slow',
+        // whether the element is hidden or shown by default, options are 'hidden' and 'shown'
+        state: 'shown',
         // Define the trigger type - options are 'button' and 'anchor'
         triggerType: 'button',
         // Defines whether the triggerElement exists on the page or should be inserted dynamically
-        triggerElement: false,
+        triggerElementExists: false,
         // Defines the element to use as the triggerElement
-        triggerElementClass: 'title'
+        triggerElementTarget: 'title',
+        // Defines where the trigger element should be prepended
+        prependTriggerLocation: this,
+        // the class for the content wrapper
+        wrapClass: 'js-hide-show'
     };
 
     function ShowHide(element, options) {
@@ -60,7 +58,7 @@
 
         self.element = $(element);
         self.options = $.extend({}, defaults, options);
-        self.triggerElementOriginal = self.element.find('.' + self.options.triggerElementClass);
+        self.triggerElementOriginal = self.element.find('.' + self.options.triggerElementTarget);
 
         function init() {
         /*
@@ -74,13 +72,13 @@
             self.element.wrap(wrapper).before(triggerElement);
 
             self.element.addClass(self.options.containerClass);
-            self.element.attr('id', (self.options.containerId + counter));
+            self.element.attr('id', ('content-' + counter));
 
             if (self.options.state === 'hidden') {
-                self.element.addClass(self.options.hiddenClass).hide();
+                self.element.addClass(self.options.containerCollapsedClass).hide();
                 triggerElement.attr('aria-expanded', 'false');
             } else {
-                self.element.addClass(self.options.visibleClass).show();
+                self.element.addClass(self.options.containerExpandedClass).show();
                 triggerElement.attr('aria-expanded', 'true');
             }
 
@@ -88,28 +86,28 @@
             /*
                 On click, show or hide the content based on its state
             */
-                if (self.element.hasClass(self.options.visibleClass)) {
+                if (self.element.hasClass(self.options.containerExpandedClass)) {
                     self.element.slideUp(self.options.speed);
-                    self.element.removeClass(self.options.visibleClass);
-                    self.element.addClass(self.options.hiddenClass);
+                    self.element.removeClass(self.options.containerExpandedClass);
+                    self.element.addClass(self.options.containerCollapsedClass);
                     triggerElement
                         .attr('aria-expanded', 'false')
                         .addClass(self.options.buttonCollapsedClass)
                         .removeClass(self.options.buttonExpandedClass);
 
-                    if (!self.options.triggerElement) {
+                    if (self.options.triggerElementExists === false) {
                         $(triggerElement).html(self.options.showText);
                     }
                 } else {
                     self.element.slideDown(self.options.speed);
-                    self.element.removeClass(self.options.hiddenClass);
-                    self.element.addClass(self.options.visibleClass);
+                    self.element.removeClass(self.options.containerCollapsedClass);
+                    self.element.addClass(self.options.containerExpandedClass);
                     triggerElement
                         .attr('aria-expanded', 'true')
                         .addClass(self.options.buttonExpandedClass)
                         .removeClass(self.options.buttonCollapsedClass);
 
-                    if (!self.options.triggerElement) {
+                    if (self.options.triggerElementExists === false) {
                         $(triggerElement).html(self.options.hideText);
                     }
                 }
@@ -126,16 +124,16 @@
         */
             var triggerElement,
                 triggerElementNew,
-                attribute = self.options.containerId,
+                attribute = 'content-',
                 triggerElementText;
 
-            if (self.options.triggerElement) {
+            if (self.options.triggerElementExists === true) {
                 triggerElementText = self.triggerElementOriginal.text();
                 self.triggerElementOriginal.hide();
                 if (self.options.triggerType === 'anchor') {
                     triggerElementNew = $('<a href="#" role="button" class="' + self.options.buttonClass + '">' +  triggerElementText + '</a>');
                 } else {
-                    triggerElementNew = $('<button class="' + self.options.buttonClass + '" id="' + self.options.buttonId + counter + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
+                    triggerElementNew = $('<button class="' + self.options.buttonClass + '" aria-controls="' + attribute + counter + '">' +  triggerElementText + '</button>');
                 }
                 triggerElement = triggerElementNew;
             } else {
@@ -152,7 +150,6 @@
 
                 triggerElement.attr({
                     'class': self.options.buttonClass,
-                    'id': self.options.buttonId + counter,
                     'aria-controls': attribute + counter
                 });
 
@@ -202,8 +199,8 @@
         $('.' + this.options.wrapClass).find(this.element).unwrap();
         this.element.show();
         this.element.removeClass(this.options.containerClass);
-        this.element.removeClass(this.options.hiddenClass);
-        this.element.removeClass(this.options.visibleClass);
+        this.element.removeClass(this.options.containerCollapsedClass);
+        this.element.removeClass(this.options.containerExpandedClass);
         this.element.removeAttr('aria-expanded');
         this.element.removeAttr('id');
         this.triggerElementOriginal.show();
