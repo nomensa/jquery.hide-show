@@ -19,11 +19,13 @@
             <h1>jQuery Hide / Show</h1>
             <p>Inserts an accessible buttons/links to hide and show sections of content.</p>
 
+
             <h2>Example A</h2>
-            <p>Example of the hide/show plugin with the default options.</p>
-            <div class="exampleA">
-                Text content to be hidden text content to be hidden text content to be hidden text content to be hidden
+            <p>An example with the default options.</p>
+            <div class="example exampleA">
+                <p>Text content to be hidden text content to be hidden text content to be hidden text content to be hidden</p>
             </div><!-- .exampleA -->
+
             <h3>Initialisation</h3>
 <pre>
 <code data-language="javascript">
@@ -31,26 +33,52 @@ $(".exampleA").hideShow();
 </code>
 </pre>
 
-        <h2>Example C</h2>
-        <p>Example showing an existing element on the page converted to a trigger element for the hide/show content.</p>
 
-        <div class="exampleB">
-            <div class="row">
-                <h2 class="title">Can't find your doctor?</h2>
-                <p class="a">Please call 01234 567 890.</p>
-            </div><!-- end .row -->
-        </div><!-- end .exampleC -->
-        <h3>Initialisation</h3>
+            <h2 class="exampleB_heading">Example B</h2>
+            <p>An example with the trigger element inserted into a different location.</p>
+            <div class="example exampleB">
+                <p>Text content to be hidden text content to be hidden text content to be hidden text content to be hidden</p>
+            </div><!-- .exampleB -->
+
+            <h3>Initialisation</h3>
+<pre>
+<code data-language="javascript">
+$(".exampleB").hideShow({
+    insertMethod: 'after',
+    insertTriggerLocation: '.exampleB_heading'
+});
+</code>
+</pre>
+
+
+            <h2>Example C</h2>
+            <p>An example using an existing element on the page as the trigger element.</p>
+
+            <h3 id="trigger">Contact details</h3>
+            <div class="example exampleC">
+                <p>Telephone 01234 567 890</p>
+                <p>Email <a href="mailto:test@test.com">test@test.com</a></p>
+            </div><!-- .exampleC -->
+
+            <h3>Initialisation</h3>
 <pre>
 <code data-language="javascript">
 $(".exampleC").hideShow({
     speed: '600',
     state: 'hidden',
     triggerElement: true,
+    triggerElementTarget: 'trigger',
     triggerType: 'button'
 });
 </code>
 </pre>
+
+
+            <h2>Example D</h2>
+            <p>Destroy and rebuild public methods.</p>
+            <div class="example exampleD">
+                <p>Text content to be hidden text content to be hidden text content to be hidden text content to be hidden</p>
+            </div><!-- .exampleD -->
         </div><!-- .main -->
 
         <div class="footer">
@@ -60,22 +88,47 @@ $(".exampleC").hideShow({
         </div><!-- .footer -->
 
         <!-- Plugin scripts -->
-        <script src="gh-pages/js/vendor/jquery/1.10.2/jquery.min.js"></script>
+        <script src="gh-pages/js/vendor/jquery/1.11.1/jquery.min.js"></script>
         <script src="gh-pages/js/vendor/rainbow/rainbow.min.js"></script>
         <script src="gh-pages/js/vendor/rainbow/language/generic.js"></script>
         <script src="gh-pages/js/vendor/rainbow/language/javascript.js"></script>
         <script src="jquery.hideShow.js"></script>
         <script>
             $(document).ready( function(){
-                $(".exampleA").hideShow();
+                $('.exampleA').hideShow();
 
-                $(".exampleB").hideShow({
+                $('.exampleB').hideShow({
+                    insertMethod: 'after',
+                    insertTriggerLocation: '.exampleB_heading'
+                });
+
+                $('.exampleC').hideShow({
                     speed: '600',
                     state: 'hidden',
-                    triggerElement: true,
+                    triggerElementTarget: '#trigger',
                     triggerType: 'button'
                 });
             });
+
+            (function() {
+                var target = $('.exampleD'),
+                    buttonContainer = $('<div />'),
+                    buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
+                    buttonDestroy = $('<button class="js-btn">Destroy</button>');
+
+                target.hideShow();
+
+                buttonRebuild.on('click', function() {
+                    target.data('plugin_hideShow').rebuild();
+                });
+
+                buttonDestroy.on('click', function() {
+                    target.data('plugin_hideShow').destroy();
+                });
+
+                buttonContainer.append(buttonDestroy, buttonRebuild);
+                target.after(buttonContainer);
+            })();
         </script>
     </body>
 </html>

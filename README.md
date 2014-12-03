@@ -168,3 +168,11 @@ $ grunt
 Copyright &copy; 2014 [@nomensa](http://nomensa.com)
 
 Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
+
+
+## TODO
+
+ - Update rebuild and destroy functions
+ - Update README
+ - Update Jasmine tests
+ - Cross browser / screen reader QA
