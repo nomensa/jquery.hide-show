@@ -257,6 +257,8 @@
     /*
         Public method for return the DOM back to its initial state
     */
+        var triggerElementRef = this.element.attr('id');
+
         this.element
             .removeAttr('aria-hidden id style')
             .removeClass(this.options.containerClass)
@@ -265,9 +267,11 @@
 
         // If an existing element was used we want to return it to its original state, not remove it completely
         if (this.options.triggerElementTarget === null) {
-            this.triggerElement.removeData().remove();
+            // this.triggerElement.remove(); only works first time, does not work when plugin is rebuild
+            $('[aria-controls="' + triggerElementRef + '"]').remove();
         } else {
             this.triggerElement
+                .off()
                 .removeAttr('aria-controls aria-expanded role tabindex')
                 .removeClass(this.options.buttonClass)
                 .removeClass(this.options.buttonCollapsedClass)

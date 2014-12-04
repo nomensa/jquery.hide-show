@@ -54,7 +54,7 @@ $(".exampleB").hideShow({
             <h2>Example C</h2>
             <p>An example using an existing element on the page as the trigger element.</p>
 
-            <h3 id="trigger">Contact details</h3>
+            <h3 id="triggerC">Contact details</h3>
             <div class="example exampleC">
                 <p>Telephone 01234 567 890</p>
                 <p>Email <a href="mailto:test@test.com">test@test.com</a></p>
@@ -74,11 +74,17 @@ $(".exampleC").hideShow({
 </pre>
 
 
-            <h2>Example D</h2>
-            <p>Destroy and rebuild public methods.</p>
+            <h2>Public methods</h2>
+
             <div class="example exampleD">
                 <p>Text content to be hidden text content to be hidden text content to be hidden text content to be hidden</p>
             </div><!-- .exampleD -->
+
+            <h3 id="triggerE">Contact details</h3>
+            <div class="example exampleE">
+                <p>Telephone 01234 567 890</p>
+                <p>Email <a href="mailto:test@test.com">test@test.com</a></p>
+            </div><!-- .exampleE -->
         </div><!-- .main -->
 
         <div class="footer">
@@ -105,7 +111,7 @@ $(".exampleC").hideShow({
                 $('.exampleC').hideShow({
                     speed: '600',
                     state: 'hidden',
-                    triggerElementTarget: '#trigger',
+                    triggerElementTarget: '#triggerC',
                     triggerType: 'button'
                 });
             });
@@ -118,16 +124,61 @@ $(".exampleC").hideShow({
 
                 target.hideShow();
 
+                buttonRebuild.attr('disabled', 'disabled');
+
                 buttonRebuild.on('click', function(event) {
                     event.preventDefault();
 
                     target.data('plugin_hideShow').rebuild();
+
+                    $(this).attr('disabled', 'disabled');
+                    buttonDestroy.removeAttr('disabled');
                 });
 
                 buttonDestroy.on('click', function(event) {
                     event.preventDefault();
 
                     target.data('plugin_hideShow').destroy();
+
+                    $(this).attr('disabled', 'disabled');
+                    buttonRebuild.removeAttr('disabled');
+                });
+
+                buttonContainer.append(buttonDestroy, buttonRebuild);
+                target.after(buttonContainer);
+            })();
+
+            (function() {
+                var target = $('.exampleE'),
+                    buttonContainer = $('<div />'),
+                    buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
+                    buttonDestroy = $('<button class="js-btn">Destroy</button>');
+
+                target.hideShow({
+                    speed: '600',
+                    state: 'hidden',
+                    triggerElementTarget: '#triggerE',
+                    triggerType: 'button'
+                });
+
+                buttonRebuild.attr('disabled', 'disabled');
+
+                buttonRebuild.on('click', function(event) {
+                    event.preventDefault();
+
+                    target.data('plugin_hideShow').rebuild();
+
+                    $(this).attr('disabled', 'disabled');
+                    buttonDestroy.removeAttr('disabled');
+                });
+
+                buttonDestroy.on('click', function(event) {
+                    event.preventDefault();
+
+                    target.data('plugin_hideShow').destroy();
+
+                    $(this).attr('disabled', 'disabled');
+                    buttonRebuild.removeAttr('disabled');
                 });
 
                 buttonContainer.append(buttonDestroy, buttonRebuild);

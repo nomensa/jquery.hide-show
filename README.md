@@ -172,7 +172,6 @@ Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
 
 ## TODO
 
- - Update rebuild and destroy functions
  - Update README
  - Update Jasmine tests
  - Cross browser / screen reader QA
