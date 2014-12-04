@@ -118,11 +118,15 @@ $(".exampleC").hideShow({
 
                 target.hideShow();
 
-                buttonRebuild.on('click', function() {
+                buttonRebuild.on('click', function(event) {
+                    event.preventDefault();
+
                     target.data('plugin_hideShow').rebuild();
                 });
 
-                buttonDestroy.on('click', function() {
+                buttonDestroy.on('click', function(event) {
+                    event.preventDefault();
+
                     target.data('plugin_hideShow').destroy();
                 });
 

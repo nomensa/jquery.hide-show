@@ -263,8 +263,9 @@
             .removeClass(this.options.containerCollapsedClass)
             .removeClass(this.options.containerExpandedClass);
 
+        // If an existing element was used we want to return it to its original state, not remove it completely
         if (this.options.triggerElementTarget === null) {
-            this.triggerElement.remove();
+            this.triggerElement.removeData().remove();
         } else {
             this.triggerElement
                 .removeAttr('aria-controls aria-expanded role tabindex')
