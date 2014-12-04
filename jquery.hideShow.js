@@ -54,7 +54,6 @@
 
         self.element = $(element);
         self.options = $.extend({}, defaults, options);
-//        self.triggerElementOriginal = self.element.find('.' + self.options.triggerElementTarget);
 
         function init() {
         /*
@@ -278,7 +277,6 @@
                 .removeClass(this.options.buttonExpandedClass);
         }
     };
-
 
     $.fn[pluginName] = function (options) {
     /*

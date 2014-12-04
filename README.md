@@ -20,110 +20,82 @@ Then it's just a case of including the following scripts on your page, best at t
 
 ## Options & Defaults
 
-### hiddenClass
-
-Type: `string`
-Default: 'hidden'
-Description: The class which is added to the content when it is hidden
-
-### visibleClass
-
-Type: `string`
-Default: 'visible'
-Descritpion: The class which is added to the content when it is visible
-
 ### buttonClass
 
-Type: `string`
-Default: 'js-hide-show-btn'
+Type: `string` 
+Default: 'js-hide-show_btn' 
 Description: The class which is added to the button for styling purposes
-
-### buttonHelperClass
-
-Type `string`
-Default 'hide'
-Description: The class which is added to the element inside the button. Can be used to hide text off screen if needed
-
-### buttonId
-
-Type: `string`
-Default: 'btn-control-'
-Description: The ID used to target the button
 
 ### buttonCollapsedClass
 
-Type: `string`
-Default: 'js-hide-show-btn--collapsed'
+Type: `string` 
+Default: 'js-hide-show_btn--collapsed' 
 Description: The class name applied to the button when the element is collapsed
 
 ### buttonExpandedClass
 
-Type: `string`
-Default: 'js-hide-show-btn--expanded'
+Type: `string` 
+Default: 'js-hide-show_btn--expanded' 
 Description: The class name applied to the button when the element is expanded
-
-### speed
-
-Type: `string` or `number`
-Default: 'slow'
-Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
-
-### showText
-
-Type: `string`
-Default: 'Show Content'
-Description: The text for the button that shows the content
-
-### hideText
-
-Type: `string`
-Default: 'Hide Content'
-Description: The text for the button that hides the content
-
-### state
-Type: `string`
-Default: 'shown'
-Description: Sets whether the element is hidden or shown by default, options are 'hidden' and 'shown'
-
-### containerId
-
-Type: `string`
-Default: 'content'
-Description: The id for the element to be hidden/shown
 
 ### containerClass
 
-Type: `string`
-Default: 'js-hide-show-content'
+Type: `string` 
+Default: 'js-hide-show_content' 
 Description: The class for the element to be hidden/shown
 
-### wrapClass
+### containerCollapsedClass
 
-Type: `string`
-Default: 'content-wrap'
-Description: The class for the content wrapper
+Type: `string` 
+Default: 'js-hide-show_content--collapsed' 
+Description: The class which is added to the content when it is collapsed
 
-### triggerType
+### containerExpandedClass
 
-Type: `string`
-Default: 'button'
-Description: Defines whether the inserted triggerElement is a button or an anchor - options are 'button' or 'anchor'
+Type: `string` 
+Default: 'js-hide-show_content--visible' 
+Descritpion: The class which is added to the content when it is expanded
 
-### triggerElement
+### hideText
 
-Type: `boolean`
-Default: 'true'
-Description: Defines if the trigger element exists on the page or is inserted by the plugin
+Type: `string` 
+Default: 'Hide Content' 
+Description: The text for the button that hides the content
 
-### continual
-Type: `boolean`
-Default: 'true'
-Description: Defines if show/hide functionality is required constantly through mobile to desktop or just on mobile
+### showText
 
-### breakpointClass
-Type:`string`
-Default: 'mobile'
-Description: Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
+Type: `string` 
+Default: 'Show Content' 
+Description: The text for the button that shows the content
+
+### speed
+
+Type: `string` or `number` 
+Default: 'slow' 
+Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
+
+### state
+Type: `string` 
+Default: 'shown' 
+Description: Sets whether the element is hidden or shown by default, options are 'hidden' and 'shown'
+
+### triggerElementTarget
+
+Type: `string` 
+Default: 'null' 
+Description: Defines if an existing element should act as the trigger element
+
+### insertMethod
+
+Type: `string` 
+Default: 'before' 
+Description: Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
+
+### insertTriggerLocation
+
+Type:`string` 
+Default: 'null' 
+Description: Defines if the generated trigger element should be inserted to somewhere other than directly before the element
 
 
 ## Development
@@ -170,8 +142,21 @@ Copyright &copy; 2014 [@nomensa](http://nomensa.com)
 Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
 
 
+### Connect server (optional)
+
+You can run a connect web server on `http://0.0.0.0:9001`, if required, when running grunt:
+
+```bash
+$ grunt --connect
+# => Running "connect:server" (connect) task
+# => Started connect web server on http://0.0.0.0:9001
+
+# => Running "watch" task
+# => Waiting...
+```
+
+
 ## TODO
 
- - Update README
  - Update Jasmine tests
  - Cross browser / screen reader QA
