@@ -13,7 +13,7 @@ To get started you can either:
 Then it's just a case of including the following scripts on your page, best at the bottom:
 
 ```html
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="jquery.hideShow.min.js"></script>
 ```
 
