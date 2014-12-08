@@ -181,9 +181,3 @@ $ grunt --connect
 # => Running "watch" task
 # => Waiting...
 ```
-
-
-## TODO
-
- - Update Jasmine tests
- - Cross browser / screen reader QA
