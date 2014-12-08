@@ -164,12 +164,7 @@ Running grunt (with watcher) will watch for any changes and recompile - best use
 $ grunt
 ```
 
-Copyright &copy; 2014 [@nomensa](http://nomensa.com)
-
-Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
-
-
-### Connect server (optional)
+#### Connect server (optional)
 
 You can run a connect web server on `http://0.0.0.0:9001`, if required, when running grunt:
 
@@ -181,3 +176,7 @@ $ grunt --connect
 # => Running "watch" task
 # => Waiting...
 ```
+
+Copyright &copy; 2014 [@nomensa](http://nomensa.com)
+
+Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
