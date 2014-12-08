@@ -76,6 +76,22 @@ Default: 'Hide Content'
 
 Description: The text for the button that hides the content
 
+### insertMethod
+
+Type: `string`
+
+Default: 'before'
+
+Description: Method that is used to insert the trigger button into the location, options are `'after'`, `'append'`, `'before'` and `'prepend'`
+
+### insertTriggerLocation
+
+Type:`string`
+
+Default: 'null'
+
+Description: Defines if the generated trigger element should be inserted to somewhere other than directly before the element
+
 ### showText
 
 Type: `string`
@@ -98,7 +114,7 @@ Type: `string`
 
 Default: 'shown'
 
-Description: Sets whether the element is hidden or shown by default, options are 'hidden' and 'shown'
+Description: Sets whether the element is hidden or shown by default, options are `'hidden'` and `'shown'`
 
 ### triggerElementTarget
 
@@ -107,22 +123,6 @@ Type: `string`
 Default: 'null'
 
 Description: Defines if an existing element should act as the trigger element
-
-### insertMethod
-
-Type: `string`
-
-Default: 'before'
-
-Description: Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
-
-### insertTriggerLocation
-
-Type:`string`
-
-Default: 'null'
-
-Description: Defines if the generated trigger element should be inserted to somewhere other than directly before the element
 
 
 ## Development
