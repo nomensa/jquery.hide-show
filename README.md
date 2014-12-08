@@ -1,4 +1,4 @@
-# jQuery Hide / Show [![Build Status](https://travis-ci.org/nomensa/jquery.hide-show.svg)](https://travis-ci.org/nomensa/jquery.hide-show)
+# jQuery Hide / Show [![Build Status](https://travis-ci.org/nomensa/jquery.hide-show.svg)](https://travis-ci.org/nomensa/jquery.hide-show.svg?branch=master)
 
 > Inserts an accessible buttons/links to hide and show sections of content.
 
@@ -22,79 +22,106 @@ Then it's just a case of including the following scripts on your page, best at t
 
 ### buttonClass
 
-Type: `string` 
-Default: 'js-hide-show_btn' 
+Type: `string`
+
+Default: 'js-hide-show_btn'
+
 Description: The class which is added to the button for styling purposes
 
 ### buttonCollapsedClass
 
-Type: `string` 
-Default: 'js-hide-show_btn--collapsed' 
+Type: `string`
+
+Default: 'js-hide-show_btn--collapsed'
+
 Description: The class name applied to the button when the element is collapsed
 
 ### buttonExpandedClass
 
-Type: `string` 
-Default: 'js-hide-show_btn--expanded' 
+Type: `string`
+
+Default: 'js-hide-show_btn--expanded'
+
 Description: The class name applied to the button when the element is expanded
 
 ### containerClass
 
-Type: `string` 
-Default: 'js-hide-show_content' 
+Type: `string`
+
+Default: 'js-hide-show_content'
+
 Description: The class for the element to be hidden/shown
 
 ### containerCollapsedClass
 
-Type: `string` 
-Default: 'js-hide-show_content--collapsed' 
+Type: `string`
+
+Default: 'js-hide-show_content--collapsed'
+
 Description: The class which is added to the content when it is collapsed
 
 ### containerExpandedClass
 
-Type: `string` 
-Default: 'js-hide-show_content--visible' 
+Type: `string`
+
+Default: 'js-hide-show_content--visible'
+
 Descritpion: The class which is added to the content when it is expanded
 
 ### hideText
 
-Type: `string` 
-Default: 'Hide Content' 
+Type: `string`
+
+Default: 'Hide Content'
+
 Description: The text for the button that hides the content
 
 ### showText
 
-Type: `string` 
-Default: 'Show Content' 
+Type: `string`
+
+Default: 'Show Content'
+
 Description: The text for the button that shows the content
 
 ### speed
 
-Type: `string` or `number` 
-Default: 'slow' 
+Type: `string` or `number`
+
+Default: 'slow'
+
 Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
 
 ### state
-Type: `string` 
-Default: 'shown' 
+
+Type: `string`
+
+Default: 'shown'
+
 Description: Sets whether the element is hidden or shown by default, options are 'hidden' and 'shown'
 
 ### triggerElementTarget
 
-Type: `string` 
-Default: 'null' 
+Type: `string`
+
+Default: 'null'
+
 Description: Defines if an existing element should act as the trigger element
 
 ### insertMethod
 
-Type: `string` 
-Default: 'before' 
+Type: `string`
+
+Default: 'before'
+
 Description: Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
 
 ### insertTriggerLocation
 
-Type:`string` 
-Default: 'null' 
+Type:`string`
+
+Default: 'null'
+
 Description: Defines if the generated trigger element should be inserted to somewhere other than directly before the element
 
 

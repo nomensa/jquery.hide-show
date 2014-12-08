@@ -1,6 +1,6 @@
 {
   "name": "jquery-hide-show",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Inserts an accessible buttons/links to hide and show sections of content.",
   "author": "Nomensa <tech@nomensa.com>",
   "repository": {

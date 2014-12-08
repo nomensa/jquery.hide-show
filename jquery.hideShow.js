@@ -3,7 +3,7 @@
  *
  * @description: Inserts an accessible buttons/links to hide and show sections of content
  * @source: https://github.com/nomensa/jquery.hide-show.git
- * @version: '0.2.1'
+ * @version: '1.0.0'
  *
  * @author: Nomensa
  * @license: licenced under MIT - http://opensource.org/licenses/mit-license.php
@@ -32,6 +32,10 @@
         containerExpandedClass: 'js-hide-show_content--expanded',
         // the text to apply to the button/link phrase for the trigger element when visible
         hideText: 'Hide Content',
+        // Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
+        insertMethod: 'before',
+        // Defines if the generated trigger element should be inserted to somewhere other than directly before the element
+        insertTriggerLocation: null,
         // the text to apply to the button/link phrase for the trigger element when hidden
         showText: 'Show Content',
         // the speed applied to the transition when displaying the element
@@ -39,11 +43,7 @@
         // whether the element is hidden or shown by default, options are 'hidden' and 'shown'
         state: 'shown',
         // Defines if an existing element should act as the trigger element
-        triggerElementTarget: null,
-        // Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
-        insertMethod: 'before',
-        // Defines if the generated trigger element should be inserted to somewhere other than directly before the element
-        insertTriggerLocation: null
+        triggerElementTarget: null
     };
 
     function ShowHide(element, options) {
@@ -87,11 +87,6 @@
 
                 self.triggerElement.attr('aria-expanded', 'true');
             }
-
-            // Bind event handlers to trigger element
-            $(self.triggerElement)
-                .click(createHandleClick(self))
-                .keydown(createHandleKeyDown(self));
 
             // Add the trigger element into the DOM
             if (self.options.insertTriggerLocation === null) {
@@ -137,6 +132,9 @@
                 } else {
                     $(triggerElement).html(self.options.hideText);
                 }
+
+                // Bind event handlers to trigger element
+                $(triggerElement).click(createHandleClick(self));
             } else {
                 triggerElement = $(self.options.triggerElementTarget);
 
@@ -146,6 +144,11 @@
                     'role': 'button',
                     'tabindex': '0'
                 });
+
+                // Bind event handlers to trigger element
+                $(triggerElement)
+                    .click(createHandleClick(self))
+                    .keydown(createHandleKeyDown(self));
             }
 
             if (self.options.state === 'hidden') {
@@ -174,7 +177,7 @@
             Create the keydown event handle
         */
             self.handleKeyDown = function(event) {
-                // Enter or spacebar
+                // enter or spacebar
                 if (event.keyCode === 13 || event.keyCode === 32) {
                     self.toggle();
                 }
@@ -266,7 +269,7 @@
 
         // If an existing element was used we want to return it to its original state, not remove it completely
         if (this.options.triggerElementTarget === null) {
-            // this.triggerElement.remove(); only works first time, does not work when plugin is rebuild
+            this.triggerElement.remove(); // only works first time, does not work when plugin is rebuild hence the fallback
             $('[aria-controls="' + triggerElementRef + '"]').remove();
         } else {
             this.triggerElement
