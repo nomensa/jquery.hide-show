@@ -19,6 +19,13 @@ describe('hide-show', function () {
             '</div>',
         testElement2;
 
+    var markUp3 =
+            '<div class="row">' +
+                '<h2 class="title">Can\'t find your doctor</h2>' +
+                '<p>Please call 01234 567 890.</p>' +
+            '</div>',
+        testElement3;
+
     beforeEach(function () {
         testElement = $(markUp);
     });
@@ -60,13 +67,13 @@ describe('hide-show', function () {
 
        it('should set an aria-controls attribute on the button', function () {
            testElement.hideShow();
-           expect(testElement.siblings('button').attr('aria-controls')).toBeDefined();
+           expect(testElement.siblings('.js-hide-show_btn').attr('aria-controls')).toBeDefined();
        });
 
        it('should set an aria-controls attribute to be associated with the relevant content', function () {
            testElement.hideShow();
            var id = testElement.attr('id');
-           expect(testElement.siblings('button').attr('aria-controls')).toBe(id);
+           expect(testElement.siblings('.js-hide-show_btn').attr('aria-controls')).toBe(id);
        });
 
        it('should add an id of content to the target element', function () {
@@ -178,13 +185,7 @@ describe('hide-show', function () {
             expect(testElement2.siblings('a')).toBeDefined();
         });
 
-        it('should replace the chosen element with a trigger element (button)', function () {
-            testElement2.hideShow({
-                triggerType: 'button',
-                triggerElement: true
-            });
-            expect(testElement2.siblings('.js-hide-show_btn')).toBeDefined();
-        });
+
     });
 
     describe('- click function', function () {
@@ -218,6 +219,34 @@ describe('hide-show', function () {
 
     });
 
+    describe('- open function', function() {
+
+        beforeEach(function () {
+            testElement3 = $(markUp3);
+        });
+
+        it('- should add a tabindex of -1 to the element if the trigger does not immediately precede it', function () {
+            testElement3.hideShow({
+                insertTriggerLocation: '.example'
+            });
+
+            expect(testElement3.attr('tabindex')).toBe('-1');
+        });
+
+        it('- should insert the trigger before the element if the insertMethod option is set to "before"', function () {
+            $(testElement3).before('<p class="example">Insert button before this</p>');
+
+            testElement3.hideShow({
+                insertMethod: 'before',
+                insertTriggerLocation: '.example'
+            });
+
+            console.log(testElement3.siblings());
+            expect(testElement3.siblings('.example').prev('button')).toBe(true);
+        });
+
+    });
+
     describe('- plugin rebuild', function () {
         it('should add a button to the target element when the rebuild function is called', function () {
             testElement.hideShow();
@@ -239,6 +268,16 @@ describe('hide-show', function () {
             expect(testElement.hasClass('js-hide-show_content')).toBe(false);
             expect(testElement.hasClass('js-hide-show_content--collapsed')).toBe(false);
             expect(testElement.hasClass('js-hide-show_content--expanded')).toBe(false);
+        });
+
+        it('should remove all classes from the trigger element', function () {
+            testElement.hideShow();
+            var button = testElement.siblings('.js-hide-show_btn');
+
+            testElement.data('plugin_hideShow').destroy();
+            expect(button.hasClass('js-hide-show_btn')).toBe(false);
+            expect(button.hasClass('js-hide-show_btn--collapsed')).toBe(false);
+            expect(button.hasClass('js-hide-show_btn--expanded')).toBe(false);
         });
 
         it('should remove the trigger element', function () {
