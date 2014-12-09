@@ -256,7 +256,7 @@
 
     ShowHide.prototype.rebuild = function() {
     /*
-        Public method for rebuild the plugin and apply show/hide options
+        Public method for rebuild the plugin and apply options
     */
         return new ShowHide(this.element, this.options);
     };
