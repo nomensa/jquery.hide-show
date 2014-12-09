@@ -48,13 +48,13 @@ Description: The class name applied to the button when the element is expanded
 
 Type: `function`
 
-Description: Callback when the pligin is created
+Description: Callback when the plugin is created
 
 ### callbackDestroy
 
 Type: `function`
 
-Description: Callback when the pligin is destroyed
+Description: Callback when the plugin is destroyed
 
 ### containerClass
 

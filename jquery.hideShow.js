@@ -24,9 +24,9 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
-        // Callback when the pligin is created
+        // Callback when the plugin is created
         callbackCreate: function() {},
-        // Callback when the pligin is destroyed
+        // Callback when the plugin is destroyed
         callbackDestroy: function() {},
         // A class applied to the target element
         containerClass: 'js-hide-show_content',
