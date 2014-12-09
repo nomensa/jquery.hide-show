@@ -44,6 +44,18 @@ Default: 'js-hide-show_btn--expanded'
 
 Description: The class name applied to the button when the element is expanded
 
+### callbackCreate
+
+Type: `function`
+
+Description: Callback when the pligin is created
+
+### callbackDestroy
+
+Type: `function`
+
+Description: Callback when the pligin is destroyed
+
 ### containerClass
 
 Type: `string`
@@ -88,8 +100,6 @@ Description: Method that is used to insert the trigger button into the location,
 
 Type:`string`
 
-Default: 'null'
-
 Description: Defines if the generated trigger element should be inserted to somewhere other than directly before the element
 
 ### showText
@@ -119,8 +129,6 @@ Description: Sets whether the element is hidden or shown by default, options are
 ### triggerElementTarget
 
 Type: `string`
-
-Default: 'null'
 
 Description: Defines if an existing element should act as the trigger element
 

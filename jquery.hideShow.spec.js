@@ -18,13 +18,6 @@ describe('hide-show', function() {
             '</div>',
         testElement2;
 
-//    var markUp3 =
-//            '<div class="row">' +
-//                '<h2 class="title">Can\'t find your doctor</h2>' +
-//                '<p>Please call 01234 567 890.</p>' +
-//            '</div>',
-//        testElement3;
-
     beforeEach(function() {
         testElement = $(markUp);
     });
@@ -353,6 +346,42 @@ describe('hide-show', function() {
                 containerExpandedClass: 'expanded'
             });
             expect(testElement.hasClass('expanded')).toBe(true);
+        });
+
+        it('should trigger "callbackCreate" once the plugin has been created', function() {
+            var mocks,
+                el,
+                created = false;
+
+            mocks = {
+                callbackCreate: function(testElement) {
+                    created = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackCreate: mocks.callbackCreate
+            });
+
+            expect(created).toBe(true);
+        });
+
+        it('should trigger "callbackDestroy" once the plugin has been destroyed', function() {
+            var mocks,
+                el,
+                destroyed = false;
+
+            mocks = {
+                callbackDestroy: function(testElement) {
+                    destroyed = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackDestroy: mocks.callbackDestroy
+            });
+
+            el.data('plugin_hideShow').destroy();
+
+            expect(destroyed).toBe(true);
         });
     });
 });

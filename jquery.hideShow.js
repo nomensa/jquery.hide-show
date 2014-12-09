@@ -24,6 +24,10 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
+        // Callback when the pligin is created
+        callbackCreate: function() {},
+        // Callback when the pligin is destroyed
+        callbackDestroy: function() {},
         // A class applied to the target element
         containerClass: 'js-hide-show_content',
         // the class name applied to the hidden element
@@ -110,6 +114,8 @@
 
             // Increment counter for unique ID's
             counter++;
+
+            self.options.callbackCreate();
         }
 
         function createTriggerElement() {
@@ -279,6 +285,8 @@
                 .removeClass(this.options.buttonCollapsedClass)
                 .removeClass(this.options.buttonExpandedClass);
         }
+
+        this.options.callbackDestroy();
     };
 
     $.fn[pluginName] = function (options) {

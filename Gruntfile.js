@@ -89,7 +89,7 @@ module.exports = function(grunt) {
                 files: [
                     'Gruntfile.js',
                     'jquery.hideShow.js',
-                    'hideShowSpec.js'
+                    'jquery.hideShow.spec.js'
                 ],
                 tasks: [
                     'karma',
