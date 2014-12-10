@@ -11,22 +11,14 @@ module.exports = function(grunt) {
     // Project configuration
     grunt.initConfig({
 
-        // Minify files with UglifyJS
-        uglify: {
-            options: {
-                preserveComments: 'some'
-            },
-            target: {
-                files: {
-                    'jquery.hideShow.min.js': ['jquery.hideShow.js']
+        //Start a connect web server
+        connect: {
+            server: {
+                options: {
+                    livereload: 35729,
+                    hostname: '0.0.0.0',
+                    port: 9001
                 }
-            }
-        },
-
-        // Grunt plugin for Karma
-        karma: {
-            all: {
-                configFile: 'karma.conf.js'
             }
         },
 
@@ -56,9 +48,34 @@ module.exports = function(grunt) {
             ]
         },
 
+        // Minify files with UglifyJS
+        uglify: {
+            options: {
+                preserveComments: 'some'
+            },
+            target: {
+                files: {
+                    'jquery.hideShow.min.js': ['jquery.hideShow.js']
+                }
+            }
+        },
+
+        // Grunt plugin for Karma
+        karma: {
+            all: {
+                configFile: 'karma.conf.js'
+            }
+        },
+
         watch: {
             options: {
-                debounceDelay: 250
+                debounceDelay: 250,
+                livereload: 35729
+            },
+            html: {
+                files: [
+                    'index.html',
+                ]
             },
             js: {
                 files: [
@@ -72,7 +89,7 @@ module.exports = function(grunt) {
                 files: [
                     'Gruntfile.js',
                     'jquery.hideShow.js',
-                    'hideShowSpec.js'
+                    'jquery.hideShow.spec.js'
                 ],
                 tasks: [
                     'karma',
@@ -92,8 +109,25 @@ module.exports = function(grunt) {
         }
     });
 
-    // Default tasks e.g. where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('default', 'watch');
+    grunt.registerTask('default', 'watch (@options: --connect)', function() {
+    /**
+     * Defaut task
+     * $ grunt
+     * @options: --connect (run watch with a connect web server)
+     */
+        if ( grunt.option('connect') ) {
+            grunt.task.run([
+                'connect',
+                'watch'
+            ]);
+        } else {
+            grunt.task.run([
+                'watch'
+            ]);
+        }
+    });
+
     grunt.registerTask('test', ['jshint', 'jscs', 'karma']);
+
     grunt.registerTask('release', ['test', 'uglify', 'version']);
 };

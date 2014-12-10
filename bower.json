@@ -16,6 +16,6 @@
     "license": "MIT",
     "homepage": "http://github.com/nomensa/jquery.hide-show",
     "dependencies": {
-        "jquery": "~1.10.2"
+        "jquery": "~1.11.1"
     }
 }
