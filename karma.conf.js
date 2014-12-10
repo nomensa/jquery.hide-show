@@ -15,9 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'gh-pages/js/vendor/jquery/1.10.2/jquery.min.js',
+      'gh-pages/js/vendor/jquery/1.11.1/jquery.min.js',
       'jquery.hideShow.js',
-      'hideShowSpec.js'
+      'jquery.hideShow.spec.js'
     ],
 
 

@@ -1,4 +1,4 @@
-# jQuery Hide / Show [![Build Status](https://travis-ci.org/nomensa/jquery.hide-show.svg)](https://travis-ci.org/nomensa/jquery.hide-show)
+# jQuery Hide / Show [![Build Status](https://travis-ci.org/nomensa/jquery.hide-show.svg)](https://travis-ci.org/nomensa/jquery.hide-show.svg?branch=master)
 
 > Inserts an accessible buttons/links to hide and show sections of content.
 
@@ -13,111 +13,124 @@ To get started you can either:
 Then it's just a case of including the following scripts on your page, best at the bottom:
 
 ```html
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="jquery.hideShow.min.js"></script>
 ```
 
 
 ## Options & Defaults
 
-### hiddenClass
-
-Type: `string`
-Default: 'hidden'
-Description: The class which is added to the content when it is hidden
-
-### visibleClass
-
-Type: `string`
-Default: 'visible'
-Descritpion: The class which is added to the content when it is visible
-
 ### buttonClass
 
 Type: `string`
-Default: 'js-hide-show-btn'
+
+Default: 'js-hide-show_btn'
+
 Description: The class which is added to the button for styling purposes
 
-### buttonHelperClass
-
-Type `string`
-Default 'hide'
-Description: The class which is added to the element inside the button. Can be used to hide text off screen if needed
-
-### buttonId
+### buttonCollapsedClass
 
 Type: `string`
-Default: 'btn-control-'
-Description: The ID used to target the button
+
+Default: 'js-hide-show_btn--collapsed'
+
+Description: The class name applied to the button when the element is collapsed
 
 ### buttonExpandedClass
 
 Type: `string`
-Default: 'js-hide-show-btn--expanded'
-Description: The class name applied to the button when element is expanded
 
-### speed
+Default: 'js-hide-show_btn--expanded'
 
-Type: `string` or `number`
-Default: 'slow'
-Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
+Description: The class name applied to the button when the element is expanded
 
-### showText
+### callbackCreate
 
-Type: `string`
-Default: 'Show Content'
-Description: The text for the button that shows the content
+Type: `function`
 
-### hideText
+Description: Callback when the plugin is created
 
-Type: `string`
-Default: 'Hide Content'
-Description: The text for the button that hides the content
+### callbackDestroy
 
-### state
-Type: `string`
-Default: 'shown'
-Description: Sets whether the element is hidden or shown by default, options are 'hidden' and 'shown'
+Type: `function`
 
-### containerId
-
-Type: `string`
-Default: 'content'
-Description: The id for the element to be hidden/shown
+Description: Callback when the plugin is destroyed
 
 ### containerClass
 
 Type: `string`
-Default: 'js-hide-show-content'
+
+Default: 'js-hide-show_content'
+
 Description: The class for the element to be hidden/shown
 
-### wrapClass
+### containerCollapsedClass
 
 Type: `string`
-Default: 'content-wrap'
-Description: The class for the content wrapper
 
-### triggerType
+Default: 'js-hide-show_content--collapsed'
+
+Description: The class which is added to the content when it is collapsed
+
+### containerExpandedClass
 
 Type: `string`
-Default: 'button'
-Description: Defines whether the inserted triggerElement is a button or an anchor - options are 'button' or 'anchor'
 
-### triggerElement
+Default: 'js-hide-show_content--visible'
 
-Type: `boolean`
-Default: 'true'
-Description: Defines if the trigger element exists on the page or is inserted by the plugin
+Descritpion: The class which is added to the content when it is expanded
 
-### continual
-Type: `boolean`
-Default: 'true'
-Description: Defines if show/hide functionality is required constantly through mobile to desktop or just on mobile
+### hideText
 
-### breakpointClass
+Type: `string`
+
+Default: 'Hide Content'
+
+Description: The text for the button that hides the content
+
+### insertMethod
+
+Type: `string`
+
+Default: 'before'
+
+Description: Method that is used to insert the trigger button into the location, options are `'after'`, `'append'`, `'before'` and `'prepend'`. Only to be used with the insertTriggerLocation option.
+
+### insertTriggerLocation
+
 Type:`string`
-Default: 'mobile'
-Description: Class applied when the breakpoint is active - options are 'desktop' and 'mobile'
+
+Description: Defines if the generated trigger element should be inserted to somewhere other than directly before the element
+
+### showText
+
+Type: `string`
+
+Default: 'Show Content'
+
+Description: The text for the button that shows the content
+
+### speed
+
+Type: `string` or `number`
+
+Default: 'slow'
+
+Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
+
+### state
+
+Type: `string`
+
+Default: 'shown'
+
+Description: Sets whether the element is hidden or shown by default, options are `'hidden'` and `'shown'`
+
+### triggerElementTarget
+
+Type: `string`
+
+Description: Defines if an existing element should act as the trigger element
 
 
 ## Development
@@ -157,6 +170,19 @@ Running grunt (with watcher) will watch for any changes and recompile - best use
 
 ```bash
 $ grunt
+```
+
+#### Connect server (optional)
+
+You can run a connect web server on `http://0.0.0.0:9001`, if required, when running grunt:
+
+```bash
+$ grunt --connect
+# => Running "connect:server" (connect) task
+# => Started connect web server on http://0.0.0.0:9001
+
+# => Running "watch" task
+# => Waiting...
 ```
 
 Copyright &copy; 2014 [@nomensa](http://nomensa.com)
