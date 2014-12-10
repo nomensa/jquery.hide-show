@@ -94,7 +94,7 @@ Type: `string`
 
 Default: 'before'
 
-Description: Method that is used to insert the trigger button into the location, options are `'after'`, `'append'`, `'before'` and `'prepend'`
+Description: Method that is used to insert the trigger button into the location, options are `'after'`, `'append'`, `'before'` and `'prepend'`. Only to be used with the insertTriggerLocation option.
 
 ### insertTriggerLocation
 
