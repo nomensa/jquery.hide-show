@@ -44,7 +44,7 @@
         insertTriggerLocation: null,
         // the text to apply to the button/link phrase for the trigger element when hidden
         showText: 'Show Content',
-        // the direction in which the content should slide from. Options are 'top', 'bottom', 'left', 'right'
+        // the direction in which the content should slide from. Options are 'top', 'left'
         slideDirection: 'top',
         // the speed applied to the transition when displaying the element
         speed: 'slow',
@@ -82,7 +82,7 @@
             }
 
             if (self.options.state === 'hidden') {
-                var elementWidth = self.element.width()
+                var elementWidth = self.element.width();
                 self.element
                     .addClass(self.options.containerCollapsedClass)
                     .attr('aria-hidden', 'true');
