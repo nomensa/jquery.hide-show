@@ -78,7 +78,15 @@ Type: `string`
 
 Default: 'js-hide-show_content--visible'
 
-Descritpion: The class which is added to the content when it is expanded
+Description: The class which is added to the content when it is expanded
+
+### slideDirection
+
+Type: `string`
+
+Default: 'top'
+
+Description: The direction in which the content should slide in. Options: 'top' or 'left'.
 
 ### hideText
 

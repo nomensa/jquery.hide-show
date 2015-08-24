@@ -34,6 +34,8 @@
         containerCollapsedClass: 'js-hide-show_content--collapsed',
         // the class name applied to the visible element
         containerExpandedClass: 'js-hide-show_content--expanded',
+        // Disable the background when the content is expanded. Options are 'true' and 'false'
+        disableBackground: false,
         // the text to apply to the button/link phrase for the trigger element when visible
         hideText: 'Hide Content',
         // Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
@@ -42,6 +44,8 @@
         insertTriggerLocation: null,
         // the text to apply to the button/link phrase for the trigger element when hidden
         showText: 'Show Content',
+        // the direction in which the content should slide from. Options are 'top', 'left'
+        slideDirection: 'top',
         // the speed applied to the transition when displaying the element
         speed: 'slow',
         // whether the element is hidden or shown by default, options are 'hidden' and 'shown'
@@ -63,6 +67,7 @@
         /*
             Our init function to create an instance of the plugin
         */
+
             // Create or use an existing element as the trigger
             self.triggerElement = createTriggerElement();
 
@@ -77,17 +82,28 @@
             }
 
             if (self.options.state === 'hidden') {
+                var elementWidth = self.element.width();
                 self.element
                     .addClass(self.options.containerCollapsedClass)
-                    .attr('aria-hidden', 'true')
-                    .hide();
+                    .attr('aria-hidden', 'true');
+
+                if (self.options.slideDirection === 'left') {
+                    self.element.css('left', elementWidth);
+                } else {
+                    self.element.hide();
+                }
 
                 self.triggerElement.attr('aria-expanded', 'false');
             } else {
                 self.element
                     .addClass(self.options.containerExpandedClass)
-                    .attr('aria-hidden', 'false')
-                    .show();
+                    .attr('aria-hidden', 'false');
+
+                if (self.options.slideDirection === 'left') {
+                    self.element.css('left', '0');
+                } else {
+                    self.element.show();
+                }
 
                 self.triggerElement.attr('aria-expanded', 'true');
             }
@@ -214,18 +230,32 @@
         self.element
             .addClass(this.options.containerExpandedClass)
             .attr('aria-hidden', 'false')
-            .removeClass(this.options.containerCollapsedClass)
-            .slideDown(this.options.speed, function() {
+            .removeClass(this.options.containerCollapsedClass);
+
+        if (self.options.slideDirection === 'left') {
+            self.element.animate({'left': '0'}, this.options.speed);
+        } else {
+            self.element.slideDown(this.options.speed, function() {
                 // Move focus to the open element if trigger doesnt immediately precede it
                 if (self.options.insertTriggerLocation !== null) {
                     self.element.focus();
                 }
             });
+        }
 
         self.triggerElement
             .addClass(this.options.buttonExpandedClass)
             .attr('aria-expanded', 'true')
             .removeClass(this.options.buttonCollapsedClass);
+
+        if (self.options.disableBackground === true) {
+            $('body').css('overflow', 'hidden');
+            $('body').prepend('<div class="js-hide-show_fade-background">');
+            $('.js-hide-show_fade-background').hide().fadeIn('fast');
+            $('.js-hide-show_fade-background').click(function() {
+                self.close();
+            });
+        }
 
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.hideText);
@@ -236,18 +266,31 @@
     /*
         Public method for hiding the element
     */
-        var self = this;
+        var self = this,
+            elementWidth = self.element.width();
 
         self.element
             .addClass(this.options.containerCollapsedClass)
             .attr('aria-hidden', 'true')
-            .removeClass(this.options.containerExpandedClass)
-            .slideUp(this.options.speed);
+            .removeClass(this.options.containerExpandedClass);
+
+        if (self.options.slideDirection === 'left') {
+            self.element.animate({'left': elementWidth}, this.options.speed);
+        } else {
+            self.element.slideUp(this.options.speed);
+        }
 
         self.triggerElement
             .addClass(this.options.buttonCollapsedClass)
             .attr('aria-expanded', 'false')
             .removeClass(this.options.buttonExpandedClass);
+
+        if (self.options.disableBackground === true) {
+            $('body').css('overflow', 'auto');
+            $('.js-hide-show_fade-background').fadeOut('fast', function() {
+                $(this).remove();
+            });
+        }
 
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.showText);
