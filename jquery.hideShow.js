@@ -82,12 +82,13 @@
             }
 
             if (self.options.state === 'hidden') {
+                var elementWidth = self.element.width()
                 self.element
                     .addClass(self.options.containerCollapsedClass)
                     .attr('aria-hidden', 'true');
 
                 if (self.options.slideDirection === 'left') {
-                    self.element.css('left', '-750px');
+                    self.element.css('left', elementWidth);
                 } else {
                     self.element.hide();
                 }
@@ -265,7 +266,8 @@
     /*
         Public method for hiding the element
     */
-        var self = this;
+        var self = this,
+            elementWidth = self.element.width();
 
         self.element
             .addClass(this.options.containerCollapsedClass)
@@ -273,7 +275,7 @@
             .removeClass(this.options.containerExpandedClass);
 
         if (self.options.slideDirection === 'left') {
-            self.element.animate({'left': '-750px'}, this.options.speed);
+            self.element.animate({'left': elementWidth}, this.options.speed);
         } else {
             self.element.slideUp(this.options.speed);
         }
