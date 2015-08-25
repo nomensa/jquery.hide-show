@@ -296,7 +296,6 @@
         } else {
             this.triggerElement
                 .off('click')
-                .removeData('plugin_hideShow')
                 .removeAttr('aria-controls aria-expanded role tabindex')
                 .removeClass(this.options.buttonClass)
                 .removeClass(this.options.buttonCollapsedClass)
