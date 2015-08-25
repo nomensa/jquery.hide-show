@@ -28,12 +28,12 @@
         callbackBeforeClose: function() {},
         // Callback before the 'open' public method is called
         callbackBeforeOpen: function() {},
+        // Callback after the 'close' public method is called
+        callbackClosed: function() {},
         // Callback when the plugin is created
         callbackCreate: function() {},
         // Callback when the plugin is destroyed
         callbackDestroy: function() {},
-        // Callback after the 'close' public method is called
-        callbackClosed: function() {},
         // Callback after the 'close' public method is called
         callbackOpened: function() {},
         // A class applied to the target element

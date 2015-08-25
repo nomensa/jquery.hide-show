@@ -56,6 +56,12 @@ Type: `function`
 
 Description: Callback before the 'open' public method is called
 
+### callbackClosed
+
+Type: `function`
+
+Description: Callback after the 'close' public method is called
+
 ### callbackCreate
 
 Type: `function`
@@ -67,12 +73,6 @@ Description: Callback when the plugin is created
 Type: `function`
 
 Description: Callback when the plugin is destroyed
-
-### callbackClosed
-
-Type: `function`
-
-Description: Callback after the 'close' public method is called
 
 ### callbackOpened
 
