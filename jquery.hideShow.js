@@ -24,10 +24,18 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
+        // Callback before the 'close' public method is called
+        callbackBeforeClose: function() {},
+        // Callback before the 'open' public method is called
+        callbackBeforeOpen: function() {},
         // Callback when the plugin is created
         callbackCreate: function() {},
         // Callback when the plugin is destroyed
         callbackDestroy: function() {},
+        // Callback after the 'close' public method is called
+        callbackClosed: function() {},
+        // Callback after the 'close' public method is called
+        callbackOpened: function() {},
         // A class applied to the target element
         containerClass: 'js-hide-show_content',
         // the class name applied to the hidden element
@@ -211,6 +219,8 @@
     */
         var self = this;
 
+        self.options.callbackBeforeOpen();
+
         self.element
             .addClass(this.options.containerExpandedClass)
             .attr('aria-hidden', 'false')
@@ -230,6 +240,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.hideText);
         }
+
+        self.options.callbackOpened();
     };
 
     ShowHide.prototype.close = function() {
@@ -237,6 +249,8 @@
         Public method for hiding the element
     */
         var self = this;
+
+        self.options.callbackBeforeClose();
 
         self.element
             .addClass(this.options.containerCollapsedClass)
@@ -252,6 +266,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.showText);
         }
+
+        self.options.callbackClosed();
     };
 
     ShowHide.prototype.rebuild = function() {
@@ -279,7 +295,8 @@
             $('[aria-controls="' + triggerElementRef + '"]').remove();
         } else {
             this.triggerElement
-                .off()
+                .off('click')
+                .removeData('plugin_hideShow')
                 .removeAttr('aria-controls aria-expanded role tabindex')
                 .removeClass(this.options.buttonClass)
                 .removeClass(this.options.buttonCollapsedClass)

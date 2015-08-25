@@ -44,6 +44,18 @@ Default: 'js-hide-show_btn--expanded'
 
 Description: The class name applied to the button when the element is expanded
 
+### callbackBeforeClose
+
+Type: `function`
+
+Description: Callback before the 'close' public method is called
+
+### callbackBeforeOpen
+
+Type: `function`
+
+Description: Callback before the 'open' public method is called
+
 ### callbackCreate
 
 Type: `function`
@@ -55,6 +67,18 @@ Description: Callback when the plugin is created
 Type: `function`
 
 Description: Callback when the plugin is destroyed
+
+### callbackClosed
+
+Type: `function`
+
+Description: Callback after the 'close' public method is called
+
+### callbackOpened
+
+Type: `function`
+
+Description: Callback after the 'close' public method is called
 
 ### containerClass
 
