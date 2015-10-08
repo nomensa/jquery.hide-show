@@ -56,6 +56,12 @@ Type: `function`
 
 Description: Callback when the plugin is destroyed
 
+### closeOnClick
+
+Type: `boolean`
+
+Description: Collapses the content when clicking elsewhere on the page. This only works if the content has been triggered to begin with and not open by default.
+
 ### containerClass
 
 Type: `string`
