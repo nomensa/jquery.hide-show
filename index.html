@@ -56,8 +56,7 @@ $(".exampleB").hideShow({
 
             <h3 id="triggerC">Contact details</h3>
             <div class="example exampleC">
-                <p>Telephone 01234 567 890</p>
-                <p>Email <a href="mailto:test@test.com">test@test.com</a></p>
+                <p>Inserts an accessible buttons/links to hide and show sections of content.</p>
             </div><!-- .exampleC -->
 
             <h3>Initialisation</h3>
@@ -71,15 +70,31 @@ $(".exampleC").hideShow({
 </code>
 </pre>
 
+            <h2>Example D</h2>
+            <p>An example that closes the content when clicking elsewhere in the document.</p>
+            <p>The content must have been opened up through a trigger press or click for this to work.</p>
+            <div class="example exampleD">
+                <p>Closes on click elsewhere in the document.</p>
+            </div><!-- .exampleC -->
+
+            <h3>Initialisation</h3>
+<pre>
+<code data-language="javascript">
+$(".exampleD").hideShow({
+    closeOnClick: true
+});
+</code>
+</pre>
+
 
             <h2>Public methods</h2>
 
-            <div class="example exampleD">
+            <div class="example exampleE">
                 <p>Text content to be hidden text content to be hidden text content to be hidden text content to be hidden</p>
             </div><!-- .exampleD -->
 
-            <h3 id="triggerE">Contact details</h3>
-            <div class="example exampleE">
+            <h3 id="triggerF">Contact details</h3>
+            <div class="example exampleF">
                 <p>Telephone 01234 567 890</p>
                 <p>Email <a href="mailto:test@test.com">test@test.com</a></p>
             </div><!-- .exampleE -->
@@ -111,10 +126,14 @@ $(".exampleC").hideShow({
                     state: 'hidden',
                     triggerElementTarget: '#triggerC'
                 });
+
+                $('.exampleD').hideShow({
+                    closeOnClick: true
+                });
             });
 
             (function() {
-                var target = $('.exampleD'),
+                var target = $('.exampleE'),
                     buttonContainer = $('<div />'),
                     buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');
@@ -146,7 +165,7 @@ $(".exampleC").hideShow({
             })();
 
             (function() {
-                var target = $('.exampleE'),
+                var target = $('.exampleF'),
                     buttonContainer = $('<div />'),
                     buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');
@@ -154,7 +173,7 @@ $(".exampleC").hideShow({
                 target.hideShow({
                     speed: '600',
                     state: 'hidden',
-                    triggerElementTarget: '#triggerE',
+                    triggerElementTarget: '#triggerF',
                     triggerType: 'button'
                 });
 

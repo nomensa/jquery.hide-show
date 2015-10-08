@@ -368,6 +368,28 @@ describe('hide-show', function() {
         it('should trigger "callbackDestroy" once the plugin has been destroyed', function() {
             var mocks,
                 el,
+                button;
+
+            el = testElement.hideShow({
+                closeOnClick: true
+            });
+            button = testElement.siblings('.js-hide-show_btn');
+
+            // Click to close the content that is open by default
+            button.click();
+            // Click to open the content
+            button.click();
+            // Move the content so that it is off the page
+            el.hide();
+            // Click elsewhere on the page
+            $(document).mouseup();
+
+            expect(testElement.attr('aria-hidden')).toBe('true');
+        });
+
+        it('should hide the content if clicked elsewhere in the document', function() {
+            var mocks,
+                el,
                 destroyed = false;
 
             mocks = {
