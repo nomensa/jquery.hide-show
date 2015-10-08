@@ -189,7 +189,11 @@
 
                             // If clicked on elsewhere (nor a descendant of the content)
                             if (!content.is(target) && content.has(target).length === 0) {
-                                self.close();
+
+                                // If the trigger button is not clicked on
+                                if (!self.triggerElement.is(target)) {
+                                    self.close();
+                                }
                             }
                         });
                     }
