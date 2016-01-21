@@ -138,6 +138,15 @@ Type: `string`
 
 Description: Defines if an existing element should act as the trigger element
 
+### animation
+
+Type: `string`
+
+Description: The type of animation that the plugin will perform when toggling content
+
+Default: 'topToBottom'
+Other value: 'leftToRight'
+
 
 ## Development
 
