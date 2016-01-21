@@ -121,6 +121,7 @@ Description: The text for the button that shows the content
 Type: `string` or `number`
 
 Default: 'slow'
+Other values: 'none', '0' or 0
 
 Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
 
@@ -137,15 +138,6 @@ Description: Sets whether the element is hidden or shown by default, options are
 Type: `string`
 
 Description: Defines if an existing element should act as the trigger element
-
-### animation
-
-Type: `string`
-
-Description: The type of animation that the plugin will perform when toggling content
-
-Default: 'topToBottom'
-Other value: 'leftToRight'
 
 
 ## Development

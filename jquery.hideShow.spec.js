@@ -406,33 +406,22 @@ describe('hide-show', function() {
             expect(destroyed).toBe(true);
         });
 
-        it('should hide the element using absolute positioning for the "leftToRight " option', function() {
-            var testElementStyles;
+        it('should use a callback function after the animation', function() {
+            var testElementStyles,
+                button,
+                flag = false;
 
             testElement.hideShow({
-                animation: 'leftToRight',
-                state: 'hidden'
-            });
-
-            testElementStyles = testElement.attr('style');
-
-            expect(testElementStyles.indexOf("left: -100%")).toBeGreaterThan(-1);
-        });
-
-        it('should slide the element from left to right using the "leftToRight" option', function() {
-            var button,
-                testElementStyles;
-
-            testElement.hideShow({
-                animation: 'leftToRight',
-                state: 'hidden'
+                callbackAnimated: function() {
+                    flag = true;
+                }
             });
 
             button = testElement.siblings('.js-hide-show_btn');
-            button.click();
-            testElementStyles = testElement.attr('style');
 
-            expect(testElementStyles.indexOf("left: 0")).toBeGreaterThan(-1);
+            button.click();
+
+            expect(flag).toBe(true);
         });
     });
 });

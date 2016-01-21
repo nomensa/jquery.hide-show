@@ -24,6 +24,8 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
+        // A callback after the animation has occurred
+        callbackAnimated: function() {},
         // Callback when the plugin is created
         callbackCreate: function() {},
         // Callback when the plugin is destroyed
@@ -49,10 +51,7 @@
         // whether the element is hidden or shown by default, options are 'hidden' and 'shown'
         state: 'shown',
         // Defines if an existing element should act as the trigger element
-        triggerElementTarget: null,
-        // The type of animation that will occur when hiding and showing content.
-        // Other option is 'leftToRight'
-        animation: 'topToBottom'
+        triggerElementTarget: null
     };
 
     function ShowHide(element, options) {
@@ -87,20 +86,11 @@
                     .attr('aria-hidden', 'true');
 
                 // Hide in different ways depending on animation
-                switch (self.options.animation) {
-
-                    case 'topToBottom':
-                        self.element.hide();
-                        break;
-
-                    case 'leftToRight':
-                        var css = {
-                            left: '-100%',
-                            position: 'absolute'
-                        };
-
-                        self.element.css(css);
-                        break;
+                if (self.options.speed === 'none' || self.options.speed === '0' || self.options.speed === 0) {
+                    self.options.callbackAnimated();
+                } else {
+                    self.element.hide();
+                    self.options.callbackAnimated();
                 }
 
                 self.triggerElement.attr('aria-expanded', 'false');
@@ -254,41 +244,27 @@
         Public method for opening the element
     */
         var self = this,
-            animateComplete,
-            css;
+            animateComplete;
 
         self.element
             .addClass(this.options.containerExpandedClass)
             .attr('aria-hidden', 'false')
             .removeClass(this.options.containerCollapsedClass);
 
-        // Animate from the options
-        switch (this.options.animation) {
 
-            case 'topToBottom':
-                animateComplete = function() {
-                    // Move focus to the open element if trigger doesnt immediately precede it
-                    if (self.options.insertTriggerLocation !== null) {
-                        self.element.focus();
-                    }
-                };
+        // Hide in different ways depending on animation
+        if (this.options.speed === 'none' || this.options.speed === '0' || this.options.speed === '0') {
+            this.options.callbackAnimated();
+        } else {
+            animateComplete = function() {
+                // Move focus to the open element if trigger doesnt immediately precede it
+                if (self.options.insertTriggerLocation !== null) {
+                    self.element.focus();
+                }
+                self.options.callbackAnimated();
+            };
 
-                self.element.slideDown(this.options.speed, animateComplete);
-                break;
-
-            case 'leftToRight':
-                animateComplete = function() {
-                    // Move focus to the open element if trigger doesnt immediately precede it
-                    if (self.options.insertTriggerLocation !== null) {
-                        self.element.focus();
-                    }
-                };
-                css = {
-                    left: '0'
-                };
-
-                self.element.animate(css, this.options.speed, animateComplete);
-                break;
+            self.element.slideDown(this.options.speed, animateComplete);
         }
 
         self.triggerElement
@@ -313,21 +289,11 @@
             .removeClass(this.options.containerExpandedClass);
 
 
-
-        // Animate from the options
-        switch (this.options.animation) {
-
-            case 'topToBottom':
-                this.element.slideUp(this.options.speed);
-                break;
-
-            case 'leftToRight':
-                var css = {
-                    left: '-100%'
-                };
-
-                self.element.animate(css, this.options.speed);
-                break;
+        if (self.options.speed === 'none' || self.options.speed === '0' || self.options.speed === '0') {
+            self.options.callbackAnimated();
+        } else {
+            self.element.slideUp(this.options.speed);
+            self.options.callbackAnimated();
         }
 
         self.triggerElement
