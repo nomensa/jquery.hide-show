@@ -405,5 +405,34 @@ describe('hide-show', function() {
 
             expect(destroyed).toBe(true);
         });
+
+        it('should hide the element using absolute positioning for the "leftToRight " option', function() {
+            var testElementStyles;
+
+            testElement.hideShow({
+                animation: 'leftToRight',
+                state: 'hidden'
+            });
+
+            testElementStyles = testElement.attr('style');
+
+            expect(testElementStyles.indexOf("left: -100%")).toBeGreaterThan(-1);
+        });
+
+        it('should slide the element from left to right using the "leftToRight" option', function() {
+            var button,
+                testElementStyles;
+
+            testElement.hideShow({
+                animation: 'leftToRight',
+                state: 'hidden'
+            });
+
+            button = testElement.siblings('.js-hide-show_btn');
+            button.click();
+            testElementStyles = testElement.attr('style');
+
+            expect(testElementStyles.indexOf("left: 0")).toBeGreaterThan(-1);
+        });
     });
 });

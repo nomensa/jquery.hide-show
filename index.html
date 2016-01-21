@@ -86,6 +86,21 @@ $(".exampleD").hideShow({
 </code>
 </pre>
 
+            <h2>Example E</h2>
+            <p>Using a different animation.</p>
+            <div class="example exampleG">
+                <p>Closes on click elsewhere in the document.</p>
+            </div><!-- .exampleC -->
+
+            <h3>Initialisation</h3>
+<pre>
+<code data-language="javascript">
+$(".exampleD").hideShow({
+    animation: 'leftToRight'
+});
+</code>
+</pre>
+
 
             <h2>Public methods</h2>
 
@@ -129,6 +144,11 @@ $(".exampleD").hideShow({
 
                 $('.exampleD').hideShow({
                     closeOnClick: true
+                });
+
+                $('.exampleG').hideShow({
+                    animation: 'leftToRight',
+                    state: 'hidden'
                 });
             });
 

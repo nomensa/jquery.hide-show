@@ -49,7 +49,10 @@
         // whether the element is hidden or shown by default, options are 'hidden' and 'shown'
         state: 'shown',
         // Defines if an existing element should act as the trigger element
-        triggerElementTarget: null
+        triggerElementTarget: null,
+        // The type of animation that will occur when hiding and showing content.
+        // Other option is 'leftToRight'
+        animation: 'topToBottom'
     };
 
     function ShowHide(element, options) {
@@ -81,8 +84,22 @@
             if (self.options.state === 'hidden') {
                 self.element
                     .addClass(self.options.containerCollapsedClass)
-                    .attr('aria-hidden', 'true')
-                    .hide();
+                    .attr('aria-hidden', 'true');
+
+                // Hide in different ways depending on animation
+                switch (self.options.animation) {
+
+                    case 'topToBottom':
+                        self.element.hide();
+
+                    case 'leftToRight':
+                        var css = {
+                            left: '-100%',
+                            position: 'absolute'
+                        };
+
+                        self.element.css(css);
+                }
 
                 self.triggerElement.attr('aria-expanded', 'false');
             } else {
@@ -239,13 +256,34 @@
         self.element
             .addClass(this.options.containerExpandedClass)
             .attr('aria-hidden', 'false')
-            .removeClass(this.options.containerCollapsedClass)
-            .slideDown(this.options.speed, function() {
-                // Move focus to the open element if trigger doesnt immediately precede it
-                if (self.options.insertTriggerLocation !== null) {
-                    self.element.focus();
-                }
-            });
+            .removeClass(this.options.containerCollapsedClass);
+
+        // Animate from the options
+        switch (this.options.animation) {
+
+            case 'topToBottom':
+                var animateComplete = function() {
+                    // Move focus to the open element if trigger doesnt immediately precede it
+                    if (self.options.insertTriggerLocation !== null) {
+                        self.element.focus();
+                    }
+                };
+
+                self.element.slideDown(this.options.speed, animateComplete);
+
+            case 'leftToRight':
+                var animateComplete = function() {
+                    // Move focus to the open element if trigger doesnt immediately precede it
+                    if (self.options.insertTriggerLocation !== null) {
+                        self.element.focus();
+                    }
+                },
+                css = {
+                    left: '0'
+                };
+
+                self.element.animate(css, this.options.speed, animateComplete);
+        }
 
         self.triggerElement
             .addClass(this.options.buttonExpandedClass)
@@ -266,8 +304,23 @@
         self.element
             .addClass(this.options.containerCollapsedClass)
             .attr('aria-hidden', 'true')
-            .removeClass(this.options.containerExpandedClass)
-            .slideUp(this.options.speed);
+            .removeClass(this.options.containerExpandedClass);
+
+
+
+        // Animate from the options
+        switch (this.options.animation) {
+
+            case 'topToBottom':
+                this.element.slideUp(this.options.speed);
+
+            case 'leftToRight':
+                var css = {
+                    left: '-100%'
+                };
+
+                self.element.animate(css, this.options.speed);
+        }
 
         self.triggerElement
             .addClass(this.options.buttonCollapsedClass)
