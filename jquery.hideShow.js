@@ -91,6 +91,7 @@
 
                     case 'topToBottom':
                         self.element.hide();
+                        break;
 
                     case 'leftToRight':
                         var css = {
@@ -99,6 +100,7 @@
                         };
 
                         self.element.css(css);
+                        break;
                 }
 
                 self.triggerElement.attr('aria-expanded', 'false');
@@ -251,7 +253,9 @@
     /*
         Public method for opening the element
     */
-        var self = this;
+        var self = this,
+            animateComplete,
+            css;
 
         self.element
             .addClass(this.options.containerExpandedClass)
@@ -262,7 +266,7 @@
         switch (this.options.animation) {
 
             case 'topToBottom':
-                var animateComplete = function() {
+                animateComplete = function() {
                     // Move focus to the open element if trigger doesnt immediately precede it
                     if (self.options.insertTriggerLocation !== null) {
                         self.element.focus();
@@ -270,19 +274,21 @@
                 };
 
                 self.element.slideDown(this.options.speed, animateComplete);
+                break;
 
             case 'leftToRight':
-                var animateComplete = function() {
+                animateComplete = function() {
                     // Move focus to the open element if trigger doesnt immediately precede it
                     if (self.options.insertTriggerLocation !== null) {
                         self.element.focus();
                     }
-                },
+                };
                 css = {
                     left: '0'
                 };
 
                 self.element.animate(css, this.options.speed, animateComplete);
+                break;
         }
 
         self.triggerElement
@@ -313,6 +319,7 @@
 
             case 'topToBottom':
                 this.element.slideUp(this.options.speed);
+                break;
 
             case 'leftToRight':
                 var css = {
@@ -320,6 +327,7 @@
                 };
 
                 self.element.animate(css, this.options.speed);
+                break;
         }
 
         self.triggerElement
