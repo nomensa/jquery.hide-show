@@ -8,6 +8,16 @@
         <link rel="stylesheet" media="screen" href="gh-pages/css/styles.css" />
         <link rel="stylesheet" media="screen" href="gh-pages/css/demo.css" />
         <link rel="stylesheet" media="screen" href="gh-pages/css/rainbow/github.css" />
+        <style>
+        /* Example E */
+        .js-hide-show_content {
+            display: none;
+        }
+
+        .js-hide-show_content--collapsed {
+            display: block;
+        }
+        </style>
     </head>
 
     <body>
@@ -87,16 +97,29 @@ $(".exampleD").hideShow({
 </pre>
 
             <h2>Example E</h2>
-            <p>Using a different animation.</p>
+            <p>Custom CSS animation.</p>
             <div class="example exampleG">
                 <p>Closes on click elsewhere in the document.</p>
             </div><!-- .exampleC -->
 
             <h3>Initialisation</h3>
+<h4>CSS</h4>
+<pre>
+<code data-language="javascript">
+.js-hide-show_content {
+    display: none;
+}
+
+.js-hide-show_content--collapsed {
+    display: block;
+}
+</code>
+</pre>
+<h4>JS</h4>
 <pre>
 <code data-language="javascript">
 $(".exampleD").hideShow({
-    animation: 'leftToRight'
+    speed: 'none'
 });
 </code>
 </pre>
@@ -147,8 +170,7 @@ $(".exampleD").hideShow({
                 });
 
                 $('.exampleG').hideShow({
-                    animation: 'leftToRight',
-                    state: 'hidden'
+                    speed: 'none'
                 });
             });
 

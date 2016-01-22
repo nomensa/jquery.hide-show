@@ -46,10 +46,9 @@ describe('hide-show', function() {
             expect(testElement.attr('id')).toContain('content');
         });
 
-        it('should set the state to visible by default', function() {
+        it('should set aria on the visible panel by default', function() {
             expect(testElement.hasClass('js-hide-show_content--expanded')).toBe(true);
             expect(testElement.attr('aria-hidden')).toBe('false');
-            expect(testElement.css('display')).toBe('block');
 
             expect(testElement.siblings('.js-hide-show_btn').attr('aria-expanded')).toBe('true');
         });

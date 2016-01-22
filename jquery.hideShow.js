@@ -97,8 +97,7 @@
             } else {
                 self.element
                     .addClass(self.options.containerExpandedClass)
-                    .attr('aria-hidden', 'false')
-                    .show();
+                    .attr('aria-hidden', 'false');
 
                 self.triggerElement.attr('aria-expanded', 'true');
             }
@@ -253,7 +252,7 @@
 
 
         // Hide in different ways depending on animation
-        if (this.options.speed === 'none' || this.options.speed === '0' || this.options.speed === '0') {
+        if (this.options.speed === 'none' || this.options.speed === '0' || this.options.speed === 0) {
             this.options.callbackAnimated();
         } else {
             animateComplete = function() {
@@ -287,7 +286,6 @@
             .addClass(this.options.containerCollapsedClass)
             .attr('aria-hidden', 'true')
             .removeClass(this.options.containerExpandedClass);
-
 
         if (self.options.speed === 'none' || self.options.speed === '0' || self.options.speed === '0') {
             self.options.callbackAnimated();
