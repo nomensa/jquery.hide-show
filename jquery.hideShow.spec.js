@@ -152,18 +152,6 @@ describe('hide-show', function() {
         });
     });
 
-    describe('- rebuild method', function() {
-
-        it('should reinitiate the plugin', function() {
-            var plugin = testElement.hideShow();
-
-            plugin.data('plugin_hideShow').destroy();
-            plugin.data('plugin_hideShow').rebuild();
-
-            expect(plugin === testElement.hideShow()).toBe(true);
-        });
-    });
-
     describe('- destroy method', function() {
 
         beforeEach(function() {

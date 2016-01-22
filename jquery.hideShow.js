@@ -304,13 +304,6 @@
         }
     };
 
-    ShowHide.prototype.rebuild = function() {
-    /*
-        Public method for rebuild the plugin and apply options
-    */
-        return new ShowHide(this.element, this.options);
-    };
-
     ShowHide.prototype.destroy = function () {
     /*
         Public method for return the DOM back to its initial state
@@ -321,7 +314,8 @@
             .removeAttr('aria-hidden id style')
             .removeClass(this.options.containerClass)
             .removeClass(this.options.containerCollapsedClass)
-            .removeClass(this.options.containerExpandedClass);
+            .removeClass(this.options.containerExpandedClass)
+            .removeData('plugin_' + pluginName);
 
         // If an existing element was used we want to return it to its original state, not remove it completely
         if (this.options.triggerElementTarget === null) {

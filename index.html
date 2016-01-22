@@ -177,7 +177,7 @@ $(".exampleD").hideShow({
             (function() {
                 var target = $('.exampleE'),
                     buttonContainer = $('<div />'),
-                    buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
+                    buttonRebuild = $('<button class="js-btn">Init</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');
 
                 target.hideShow();
@@ -187,7 +187,7 @@ $(".exampleD").hideShow({
                 buttonRebuild.on('click', function(event) {
                     event.preventDefault();
 
-                    target.data('plugin_hideShow').rebuild();
+                    target.hideShow();
 
                     $(this).attr('disabled', 'disabled');
                     buttonDestroy.removeAttr('disabled');
@@ -209,7 +209,7 @@ $(".exampleD").hideShow({
             (function() {
                 var target = $('.exampleF'),
                     buttonContainer = $('<div />'),
-                    buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
+                    buttonRebuild = $('<button class="js-btn">Init</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');
 
                 target.hideShow({
@@ -224,7 +224,7 @@ $(".exampleD").hideShow({
                 buttonRebuild.on('click', function(event) {
                     event.preventDefault();
 
-                    target.data('plugin_hideShow').rebuild();
+                    target.hideShow();
 
                     $(this).attr('disabled', 'disabled');
                     buttonDestroy.removeAttr('disabled');
