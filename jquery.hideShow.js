@@ -24,12 +24,14 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
-        // A callback after the animation has occurred
-        callbackAnimated: function() {},
+        // Callback when the content has been closed
+        callbackClosed: function() {},
         // Callback when the plugin is created
         callbackCreate: function() {},
         // Callback when the plugin is destroyed
         callbackDestroy: function() {},
+        // Callback when the content has been opened
+        callbackOpened: function() {},
         // A class applied to the target element
         containerClass: 'js-hide-show_content',
         // the class name applied to the hidden element
@@ -86,11 +88,8 @@
                     .attr('aria-hidden', 'true');
 
                 // Hide in different ways depending on animation
-                if (self.options.speed === 'none' || self.options.speed === '0' || self.options.speed === 0) {
-                    self.options.callbackAnimated();
-                } else {
+                if (self.options.speed !== 'none' || self.options.speed !== '0' || self.options.speed !== 0) {
                     self.element.hide();
-                    self.options.callbackAnimated();
                 }
 
                 self.triggerElement.attr('aria-expanded', 'false');
@@ -250,17 +249,16 @@
             .attr('aria-hidden', 'false')
             .removeClass(this.options.containerCollapsedClass);
 
-
         // Hide in different ways depending on animation
         if (this.options.speed === 'none' || this.options.speed === '0' || this.options.speed === 0) {
-            this.options.callbackAnimated();
+            this.options.callbackOpened();
         } else {
             animateComplete = function() {
                 // Move focus to the open element if trigger doesnt immediately precede it
                 if (self.options.insertTriggerLocation !== null) {
                     self.element.focus();
                 }
-                self.options.callbackAnimated();
+                this.options.callbackOpened();
             };
 
             self.element.slideDown(this.options.speed, animateComplete);
@@ -287,11 +285,11 @@
             .attr('aria-hidden', 'true')
             .removeClass(this.options.containerExpandedClass);
 
-        if (self.options.speed === 'none' || self.options.speed === '0' || self.options.speed === '0') {
-            self.options.callbackAnimated();
+        if (self.options.speed === 'none' || self.options.speed === '0' || self.options.speed === 0) {
+            self.options.callbackClosed();
         } else {
             self.element.slideUp(this.options.speed);
-            self.options.callbackAnimated();
+            self.options.callbackClosed();
         }
 
         self.triggerElement

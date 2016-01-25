@@ -393,13 +393,35 @@ describe('hide-show', function() {
             expect(destroyed).toBe(true);
         });
 
-        it('should use a callback function after the animation', function() {
+        it('should use the opened callback', function() {
+            var testElementStyles,
+                button,
+                flag = false,
+                plugin;
+
+            testElement2.hideShow({
+                callbackOpened: function() {
+                    console.log('foo');
+                    flag = true;
+                },
+                closeOnClick: true
+            });
+
+            plugin = testElement2.data('plugin_hideShow');
+            button = testElement2.siblings('.js-hide-show_btn');
+
+            button.click();
+console.log(testElement2);
+            expect(flag).toBe(true);
+        });
+
+        xit('should use the closed callback', function() {
             var testElementStyles,
                 button,
                 flag = false;
 
             testElement.hideShow({
-                callbackAnimated: function() {
+                callbackClosed: function() {
                     flag = true;
                 }
             });
