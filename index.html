@@ -117,15 +117,15 @@ $(".exampleD").hideShow({
 
             <h2>Public methods</h2>
 
-            <div class="example exampleE">
+            <div class="example examplePublicA">
                 <p>Text content to be hidden text content to be hidden text content to be hidden text content to be hidden</p>
-            </div><!-- .exampleD -->
+            </div><!-- .examplePublicA -->
 
-            <h3 id="triggerF">Contact details</h3>
-            <div class="example exampleF">
+            <h3 id="triggerE">Contact details</h3>
+            <div class="example examplePublicB">
                 <p>Telephone 01234 567 890</p>
                 <p>Email <a href="mailto:test@test.com">test@test.com</a></p>
-            </div><!-- .exampleE -->
+            </div><!-- .examplePublicB -->
         </div><!-- .main -->
 
         <div class="footer">
@@ -165,7 +165,7 @@ $(".exampleD").hideShow({
             });
 
             (function() {
-                var target = $('.exampleE'),
+                var target = $('.examplePublicA'),
                     buttonContainer = $('<div />'),
                     buttonRebuild = $('<button class="js-btn">Init</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');
@@ -197,7 +197,7 @@ $(".exampleD").hideShow({
             })();
 
             (function() {
-                var target = $('.exampleF'),
+                var target = $('.examplePublicB'),
                     buttonContainer = $('<div />'),
                     buttonRebuild = $('<button class="js-btn">Init</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');

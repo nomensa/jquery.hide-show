@@ -335,6 +335,63 @@ describe('hide-show', function() {
             expect(testElement.hasClass('expanded')).toBe(true);
         });
 
+        it('should trigger "callbackBeforeClose" when the close public method is called', function() {
+            var mocks,
+                el,
+                beforeClose = false;
+
+            mocks = {
+                callbackBeforeClose: function(testElement) {
+                    beforeClose = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackBeforeClose: mocks.callbackBeforeClose
+            });
+
+            el.data('plugin_hideShow').close();
+
+            expect(beforeClose).toBe(true);
+        });
+
+        it('should trigger "callbackBeforeOpen" when the open public method is called', function() {
+            var mocks,
+                el,
+                beforeOpen = false;
+
+            mocks = {
+                callbackBeforeOpen: function(testElement) {
+                    beforeOpen = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackBeforeOpen: mocks.callbackBeforeOpen
+            });
+
+            el.data('plugin_hideShow').open();
+
+            expect(beforeOpen).toBe(true);
+        });
+
+        it('should trigger "callbackClosed" when the close public method is called', function() {
+            var mocks,
+                el,
+                closed = false;
+
+            mocks = {
+                callbackClosed: function(testElement) {
+                    closed = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackClosed: mocks.callbackClosed
+            });
+
+            el.data('plugin_hideShow').close();
+
+            expect(closed).toBe(true);
+        });
+
         it('should trigger "callbackCreate" once the plugin has been created', function() {
             var mocks,
                 el,
@@ -393,44 +450,23 @@ describe('hide-show', function() {
             expect(destroyed).toBe(true);
         });
 
-        it('should use the opened callback', function() {
-            var testElementStyles,
-                button,
-                flag = false,
-                plugin;
+        it('should trigger "callbackOpened" when the open public method is called', function() {
+            var mocks,
+                el,
+                opened = false;
 
-            testElement2.hideShow({
-                callbackOpened: function() {
-                    console.log('foo');
-                    flag = true;
-                },
-                closeOnClick: true
-            });
-
-            plugin = testElement2.data('plugin_hideShow');
-            button = testElement2.siblings('.js-hide-show_btn');
-
-            button.click();
-console.log(testElement2);
-            expect(flag).toBe(true);
-        });
-
-        xit('should use the closed callback', function() {
-            var testElementStyles,
-                button,
-                flag = false;
-
-            testElement.hideShow({
-                callbackClosed: function() {
-                    flag = true;
+            mocks = {
+                callbackOpened: function(testElement) {
+                    opened = true;
                 }
+            },
+            el = testElement.hideShow({
+                callbackOpened: mocks.callbackOpened
             });
 
-            button = testElement.siblings('.js-hide-show_btn');
+            el.data('plugin_hideShow').open();
 
-            button.click();
-
-            expect(flag).toBe(true);
+            expect(opened).toBe(true);
         });
     });
 });

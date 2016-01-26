@@ -24,13 +24,17 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
-        // Callback when the content has been closed
+        // Callback before the 'close' public method is called
+        callbackBeforeClose: function() {},
+        // Callback before the 'open' public method is called
+        callbackBeforeOpen: function() {},
+        // Callback after the 'close' public method is called
         callbackClosed: function() {},
         // Callback when the plugin is created
         callbackCreate: function() {},
         // Callback when the plugin is destroyed
         callbackDestroy: function() {},
-        // Callback when the content has been opened
+        // Callback after the 'close' public method is called
         callbackOpened: function() {},
         // A class applied to the target element
         containerClass: 'js-hide-show_content',
@@ -244,21 +248,20 @@
         var self = this,
             animateComplete;
 
+        self.options.callbackBeforeOpen();
+
         self.element
             .addClass(this.options.containerExpandedClass)
             .attr('aria-hidden', 'false')
             .removeClass(this.options.containerCollapsedClass);
 
         // Hide in different ways depending on animation
-        if (this.options.speed === 'none' || this.options.speed === '0' || this.options.speed === 0) {
-            this.options.callbackOpened();
-        } else {
+        if (this.options.speed !== 'none' || this.options.speed !== '0' || this.options.speed !== 0) {
             animateComplete = function() {
                 // Move focus to the open element if trigger doesnt immediately precede it
                 if (self.options.insertTriggerLocation !== null) {
                     self.element.focus();
                 }
-                this.options.callbackOpened();
             };
 
             self.element.slideDown(this.options.speed, animateComplete);
@@ -272,6 +275,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.hideText);
         }
+
+        self.options.callbackOpened();
     };
 
     ShowHide.prototype.close = function() {
@@ -279,6 +284,8 @@
         Public method for hiding the element
     */
         var self = this;
+
+        self.options.callbackBeforeClose();
 
         self.element
             .addClass(this.options.containerCollapsedClass)
@@ -300,6 +307,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.showText);
         }
+
+        self.options.callbackClosed();
     };
 
     ShowHide.prototype.destroy = function () {
@@ -321,7 +330,7 @@
             $('[aria-controls="' + triggerElementRef + '"]').remove();
         } else {
             this.triggerElement
-                .off()
+                .off('click')
                 .removeAttr('aria-controls aria-expanded role tabindex')
                 .removeClass(this.options.buttonClass)
                 .removeClass(this.options.buttonCollapsedClass)
