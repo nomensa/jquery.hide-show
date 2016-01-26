@@ -28,9 +28,9 @@
 
             <h3>Initialisation</h3>
 <pre>
-<code data-language="javascript">
-$(".exampleA").hideShow();
-</code>
+    <code data-language="javascript">
+    $(".exampleA").hideShow();
+    </code>
 </pre>
 
 
@@ -42,12 +42,12 @@ $(".exampleA").hideShow();
 
             <h3>Initialisation</h3>
 <pre>
-<code data-language="javascript">
-$(".exampleB").hideShow({
-    insertMethod: 'after',
-    insertTriggerLocation: '.exampleB_heading'
-});
-</code>
+    <code data-language="javascript">
+    $(".exampleB").hideShow({
+        insertMethod: 'after',
+        insertTriggerLocation: '.exampleB_heading'
+    });
+    </code>
 </pre>
 
 
@@ -61,13 +61,13 @@ $(".exampleB").hideShow({
 
             <h3>Initialisation</h3>
 <pre>
-<code data-language="javascript">
-$(".exampleC").hideShow({
-    speed: '600',
-    state: 'hidden',
-    triggerElementTarget: '#triggerC'
-});
-</code>
+    <code data-language="javascript">
+    $(".exampleC").hideShow({
+        speed: '600',
+        state: 'hidden',
+        triggerElementTarget: '#triggerC'
+    });
+    </code>
 </pre>
 
             <h2>Example D</h2>
@@ -79,25 +79,53 @@ $(".exampleC").hideShow({
 
             <h3>Initialisation</h3>
 <pre>
-<code data-language="javascript">
-$(".exampleD").hideShow({
-    closeOnClick: true
-});
-</code>
+    <code data-language="javascript">
+    $(".exampleD").hideShow({
+        closeOnClick: true
+    });
+    </code>
+</pre>
+
+            <h2>Example E</h2>
+            <p>Custom CSS animation.</p>
+            <div class="example exampleG">
+                <p>Closes on click elsewhere in the document.</p>
+            </div><!-- .exampleC -->
+
+            <h3>Initialisation</h3>
+<h4>CSS</h4>
+<pre>
+    <code data-language="javascript">
+    .js-hide-show_content {
+        display: none;
+    }
+
+    .js-hide-show_content--collapsed {
+        display: block;
+    }
+    </code>
+</pre>
+<h4>JS</h4>
+<pre>
+    <code data-language="javascript">
+    $(".exampleD").hideShow({
+        speed: 'none'
+    });
+    </code>
 </pre>
 
 
             <h2>Public methods</h2>
 
-            <div class="example exampleE">
+            <div class="example examplePublicA">
                 <p>Text content to be hidden text content to be hidden text content to be hidden text content to be hidden</p>
-            </div><!-- .exampleD -->
+            </div><!-- .examplePublicA -->
 
-            <h3 id="triggerF">Contact details</h3>
-            <div class="example exampleF">
+            <h3 id="triggerE">Contact details</h3>
+            <div class="example examplePublicB">
                 <p>Telephone 01234 567 890</p>
                 <p>Email <a href="mailto:test@test.com">test@test.com</a></p>
-            </div><!-- .exampleE -->
+            </div><!-- .examplePublicB -->
         </div><!-- .main -->
 
         <div class="footer">
@@ -130,12 +158,16 @@ $(".exampleD").hideShow({
                 $('.exampleD').hideShow({
                     closeOnClick: true
                 });
+
+                $('.exampleG').hideShow({
+                    speed: 'none'
+                });
             });
 
             (function() {
-                var target = $('.exampleE'),
+                var target = $('.examplePublicA'),
                     buttonContainer = $('<div />'),
-                    buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
+                    buttonRebuild = $('<button class="js-btn">Init</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');
 
                 target.hideShow();
@@ -145,7 +177,7 @@ $(".exampleD").hideShow({
                 buttonRebuild.on('click', function(event) {
                     event.preventDefault();
 
-                    target.data('plugin_hideShow').rebuild();
+                    target.hideShow();
 
                     $(this).attr('disabled', 'disabled');
                     buttonDestroy.removeAttr('disabled');
@@ -165,9 +197,9 @@ $(".exampleD").hideShow({
             })();
 
             (function() {
-                var target = $('.exampleF'),
+                var target = $('.examplePublicB'),
                     buttonContainer = $('<div />'),
-                    buttonRebuild = $('<button class="js-btn">Rebuild</button>'),
+                    buttonRebuild = $('<button class="js-btn">Init</button>'),
                     buttonDestroy = $('<button class="js-btn">Destroy</button>');
 
                 target.hideShow({
@@ -182,7 +214,7 @@ $(".exampleD").hideShow({
                 buttonRebuild.on('click', function(event) {
                     event.preventDefault();
 
-                    target.data('plugin_hideShow').rebuild();
+                    target.hideShow();
 
                     $(this).attr('disabled', 'disabled');
                     buttonDestroy.removeAttr('disabled');

@@ -44,6 +44,24 @@ Default: 'js-hide-show_btn--expanded'
 
 Description: The class name applied to the button when the element is expanded
 
+### callbackBeforeClose
+
+Type: `function`
+
+Description: Callback before the 'close' public method is called
+
+### callbackBeforeOpen
+
+Type: `function`
+
+Description: Callback before the 'open' public method is called
+
+### callbackClosed
+
+Type: `function`
+
+Description: Callback after the 'close' public method is called
+
 ### callbackCreate
 
 Type: `function`
@@ -61,6 +79,12 @@ Description: Callback when the plugin is destroyed
 Type: `boolean`
 
 Description: Collapses the content when clicking elsewhere on the page. This only works if the content has been triggered to begin with and not open by default.
+
+### callbackOpened
+
+Type: `function`
+
+Description: Callback after the 'close' public method is called
 
 ### containerClass
 
@@ -121,6 +145,7 @@ Description: The text for the button that shows the content
 Type: `string` or `number`
 
 Default: 'slow'
+Values to remove jQuery animation: 'none', '0' or 0
 
 Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
 

@@ -46,10 +46,9 @@ describe('hide-show', function() {
             expect(testElement.attr('id')).toContain('content');
         });
 
-        it('should set the state to visible by default', function() {
+        it('should set aria on the visible panel by default', function() {
             expect(testElement.hasClass('js-hide-show_content--expanded')).toBe(true);
             expect(testElement.attr('aria-hidden')).toBe('false');
-            expect(testElement.css('display')).toBe('block');
 
             expect(testElement.siblings('.js-hide-show_btn').attr('aria-expanded')).toBe('true');
         });
@@ -150,18 +149,6 @@ describe('hide-show', function() {
             expect(button.hasClass('js-hide-show_btn--collapsed')).toBe(true);
             expect(button.attr('aria-expanded')).toBe('false');
             expect(button.text()).toBe('Show Content');
-        });
-    });
-
-    describe('- rebuild method', function() {
-
-        it('should reinitiate the plugin', function() {
-            var plugin = testElement.hideShow();
-
-            plugin.data('plugin_hideShow').destroy();
-            plugin.data('plugin_hideShow').rebuild();
-
-            expect(plugin === testElement.hideShow()).toBe(true);
         });
     });
 
@@ -348,6 +335,63 @@ describe('hide-show', function() {
             expect(testElement.hasClass('expanded')).toBe(true);
         });
 
+        it('should trigger "callbackBeforeClose" when the close public method is called', function() {
+            var mocks,
+                el,
+                beforeClose = false;
+
+            mocks = {
+                callbackBeforeClose: function(testElement) {
+                    beforeClose = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackBeforeClose: mocks.callbackBeforeClose
+            });
+
+            el.data('plugin_hideShow').close();
+
+            expect(beforeClose).toBe(true);
+        });
+
+        it('should trigger "callbackBeforeOpen" when the open public method is called', function() {
+            var mocks,
+                el,
+                beforeOpen = false;
+
+            mocks = {
+                callbackBeforeOpen: function(testElement) {
+                    beforeOpen = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackBeforeOpen: mocks.callbackBeforeOpen
+            });
+
+            el.data('plugin_hideShow').open();
+
+            expect(beforeOpen).toBe(true);
+        });
+
+        it('should trigger "callbackClosed" when the close public method is called', function() {
+            var mocks,
+                el,
+                closed = false;
+
+            mocks = {
+                callbackClosed: function(testElement) {
+                    closed = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackClosed: mocks.callbackClosed
+            });
+
+            el.data('plugin_hideShow').close();
+
+            expect(closed).toBe(true);
+        });
+
         it('should trigger "callbackCreate" once the plugin has been created', function() {
             var mocks,
                 el,
@@ -404,6 +448,44 @@ describe('hide-show', function() {
             el.data('plugin_hideShow').destroy();
 
             expect(destroyed).toBe(true);
+        });
+
+        it('should trigger "callbackOpened" when the open public method is called', function() {
+            var mocks,
+                el,
+                opened = false;
+
+            mocks = {
+                callbackOpened: function(testElement) {
+                    opened = true;
+                }
+            };
+            el = testElement.hideShow({
+                callbackOpened: mocks.callbackOpened
+            });
+
+            el.data('plugin_hideShow').open();
+
+            expect(opened).toBe(true);
+        });
+
+        it('should trigger "callbackClosed" when the closed public method is called', function() {
+            var mocks,
+                el,
+                opened = false;
+
+            mocks = {
+                callbackClosed: function(testElement) {
+                    opened = true;
+                }
+            };
+            el = testElement.hideShow({
+                callbackClosed: mocks.callbackClosed
+            });
+
+            el.data('plugin_hideShow').close();
+
+            expect(opened).toBe(true);
         });
     });
 });
