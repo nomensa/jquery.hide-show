@@ -145,7 +145,7 @@ Description: The text for the button that shows the content
 Type: `string` or `number`
 
 Default: 'slow'
-Other values: 'none', '0' or 0
+Values to remove jQuery animation: 'none', '0' or 0
 
 Description: Takes the same value as the duration option for jQuery's slideUp and slideDown functions
 
