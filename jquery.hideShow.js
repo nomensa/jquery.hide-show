@@ -92,7 +92,7 @@
                     .attr('aria-hidden', 'true');
 
                 // Hide in different ways depending on animation
-                if (self.options.speed !== 'none' || self.options.speed !== '0' || self.options.speed !== 0) {
+                if (self.options.speed !== 'none' && self.options.speed !== '0' && self.options.speed !== 0) {
                     self.element.hide();
                 }
 
@@ -256,7 +256,7 @@
             .removeClass(this.options.containerCollapsedClass);
 
         // Hide in different ways depending on animation
-        if (this.options.speed !== 'none' || this.options.speed !== '0' || this.options.speed !== 0) {
+        if (this.options.speed !== 'none' && this.options.speed !== '0' && this.options.speed !== 0) {
             animateComplete = function() {
                 // Move focus to the open element if trigger doesnt immediately precede it
                 if (self.options.insertTriggerLocation !== null) {
@@ -292,11 +292,8 @@
             .attr('aria-hidden', 'true')
             .removeClass(this.options.containerExpandedClass);
 
-        if (self.options.speed === 'none' || self.options.speed === '0' || self.options.speed === 0) {
-            self.options.callbackClosed();
-        } else {
+        if (self.options.speed !== 'none' && self.options.speed !== '0' && self.options.speed !== 0) {
             self.element.slideUp(this.options.speed);
-            self.options.callbackClosed();
         }
 
         self.triggerElement

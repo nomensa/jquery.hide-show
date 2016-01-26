@@ -459,12 +459,31 @@ describe('hide-show', function() {
                 callbackOpened: function(testElement) {
                     opened = true;
                 }
-            },
+            };
             el = testElement.hideShow({
                 callbackOpened: mocks.callbackOpened
             });
 
             el.data('plugin_hideShow').open();
+
+            expect(opened).toBe(true);
+        });
+
+        it('should trigger "callbackClosed" when the closed public method is called', function() {
+            var mocks,
+                el,
+                opened = false;
+
+            mocks = {
+                callbackClosed: function(testElement) {
+                    opened = true;
+                }
+            };
+            el = testElement.hideShow({
+                callbackClosed: mocks.callbackClosed
+            });
+
+            el.data('plugin_hideShow').close();
 
             expect(opened).toBe(true);
         });
