@@ -44,18 +44,29 @@ Default: 'js-hide-show_btn--expanded'
 
 Description: The class name applied to the button when the element is expanded
 
+### callbackClosed
+
+Type: `function`
+
+Description: Callback when the content is hidden
+
 ### callbackCreate
 
 Type: `function`
 
 Description: Callback when the plugin is created
 
+### callbackOpened
+
+Type: `function`
+
+Description: Callback when the content is shown
+
 ### callbackDestroy
 
 Type: `function`
 
 Description: Callback when the plugin is destroyed
-
 ### closeOnClick
 
 Type: `boolean`

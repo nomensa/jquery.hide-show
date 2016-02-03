@@ -211,11 +211,9 @@ describe('hide-show', function() {
 
     describe('- plugin options', function() {
 
-        beforeEach(function() {
-            testElement2 = $(markUp2);
-        });
-
         it('should add a tabindex of -1 to the element if the trigger does not immediately precede it', function() {
+            testElement2 = $(markUp2);
+
             testElement2.find('div').hideShow({
                 insertMethod: 'append',
                 insertTriggerLocation: testElement2
@@ -238,6 +236,8 @@ describe('hide-show', function() {
         });
 
         it('should insert the trigger element after the content if the insertMethod is set to "after"', function() {
+            testElement2 = $(markUp2);
+
             testElement2.find('div').hideShow({
                 insertMethod: 'after',
                 insertTriggerLocation: testElement2
@@ -247,6 +247,8 @@ describe('hide-show', function() {
         });
 
         it('should insert the trigger element after the content if the insertMethod is set to "append"', function() {
+            testElement2 = $(markUp2);
+
             testElement2.find('div').hideShow({
                 insertMethod: 'append',
                 insertTriggerLocation: testElement2
@@ -256,6 +258,8 @@ describe('hide-show', function() {
         });
 
         it('should insert the trigger element after the content if the insertMethod is set to "prepend"', function() {
+            testElement2 = $(markUp2);
+
             testElement2.find('div').hideShow({
                 insertMethod: 'prepend',
                 insertTriggerLocation: testElement2
@@ -265,6 +269,8 @@ describe('hide-show', function() {
         });
 
         it('should default to inserting the trigger element before the content if the insertMethod is not "after", "append" or "prepend"', function() {
+            testElement2 = $(markUp2);
+
             testElement2.find('div').hideShow({
                 insertMethod: '',
                 insertTriggerLocation: testElement2.find('div')
@@ -274,6 +280,8 @@ describe('hide-show', function() {
         });
 
         it('should use an existing element if the triggerElementTarget option is given', function() {
+            testElement2 = $(markUp2);
+
             var trigger = $('#trigger', testElement2);
 
             testElement2.find('div').hideShow({
@@ -385,6 +393,46 @@ describe('hide-show', function() {
             $(document).mouseup();
 
             expect(testElement.attr('aria-hidden')).toBe('true');
+        });
+
+        it('should trigger "callbackOpened" when showing the content', function() {
+            var flag = false,
+                el = $(markUp2),
+                button;
+
+            el.hideShow({
+                callbackOpened: function() {
+                    flag = true;
+                }
+            });
+
+            button = el.siblings('.js-hide-show_btn');
+
+            // Click to close the content that is open by default
+            button.click();
+            // Click to open the content
+            button.click();
+
+            expect(flag).toBe(true);
+        });
+
+        it('should trigger "callbackClosed" when hiding the content', function() {
+            var flag = false,
+                el = $(markUp2),
+                button;
+
+            el.hideShow({
+                callbackClosed: function() {
+                    flag = true;
+                }
+            });
+
+            button = el.siblings('.js-hide-show_btn');
+
+            // Click to close the content that is open by default
+            button.click();
+
+            expect(flag).toBe(true);
         });
 
         it('should hide the content if clicked elsewhere in the document', function() {
