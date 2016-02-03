@@ -3,7 +3,7 @@
  *
  * @description: Inserts an accessible buttons/links to hide and show sections of content
  * @source: https://github.com/nomensa/jquery.hide-show.git
- * @version: '1.0.0'
+ * @version: '1.1.0'
  *
  * @author: Nomensa
  * @license: licenced under MIT - http://opensource.org/licenses/mit-license.php
@@ -42,6 +42,8 @@
         containerCollapsedClass: 'js-hide-show_content--collapsed',
         // the class name applied to the visible element
         containerExpandedClass: 'js-hide-show_content--expanded',
+        // Whether the content closes when clicking elsewhere in the document
+        closeOnClick: false,
         // the text to apply to the button/link phrase for the trigger element when visible
         hideText: 'Hide Content',
         // Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
@@ -182,7 +184,30 @@
                 event.preventDefault();
 
                 self.toggle();
+
+                // Note that this is meant to work for content that has been triggered
+                // and not open by default
+                if (self.options.closeOnClick === true) {
+                    // If open
+                    if (self.element.attr('aria-hidden') === 'false') {
+                        // Hide the content if clicked elsewhere in the document
+                        $(document).mouseup(function(event) {
+                            var content = self.element,
+                                target = event.target;
+
+                            // If clicked on elsewhere (nor a descendant of the content)
+                            if (!content.is(target) && content.has(target).length === 0) {
+
+                                // If the trigger button is not clicked on
+                                if (!self.triggerElement.is(target)) {
+                                    self.close();
+                                }
+                            }
+                        });
+                    }
+                }
             };
+
             return self.handleClick;
         }
 

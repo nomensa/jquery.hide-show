@@ -80,6 +80,12 @@ Type: `function`
 
 Description: Callback when the plugin is destroyed
 
+### closeOnClick
+
+Type: `boolean`
+
+Description: Collapses the content when clicking elsewhere on the page. This only works if the content has been triggered to begin with and not open by default.
+
 ### containerClass
 
 Type: `string`
@@ -212,3 +218,6 @@ $ grunt --connect
 Copyright &copy; 2014 [@nomensa](http://nomensa.com)
 
 Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
+
+## Changelog
+* Added ability to close content when clicking outside of that content.
