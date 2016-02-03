@@ -218,6 +218,3 @@ $ grunt --connect
 Copyright &copy; 2014 [@nomensa](http://nomensa.com)
 
 Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
-
-## Changelog
-* Added ability to close content when clicking outside of that content.
