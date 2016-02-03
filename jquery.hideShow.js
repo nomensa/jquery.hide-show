@@ -24,6 +24,14 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
+        // Callback at the end of the 'close' public method
+        callbackAfterClose: function() {},
+        // Callback at the end of the 'open' public method
+        callbackAfterOpen: function() {},
+        // Callback at the start of the 'close' public method
+        callbackBeforeClose: function() {},
+        // Callback at the start of the 'open' public method
+        callbackBeforeOpen: function() {},
         // Callback when the plugin is created
         callbackCreate: function() {},
         // Callback when the plugin is destroyed
@@ -236,6 +244,8 @@
     */
         var self = this;
 
+        self.options.callbackBeforeOpen();
+
         self.element
             .addClass(this.options.containerExpandedClass)
             .attr('aria-hidden', 'false')
@@ -255,6 +265,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.hideText);
         }
+
+        self.options.callbackAfterOpen();
     };
 
     ShowHide.prototype.close = function() {
@@ -262,6 +274,8 @@
         Public method for hiding the element
     */
         var self = this;
+
+        self.options.callbackBeforeClose();
 
         self.element
             .addClass(this.options.containerCollapsedClass)
@@ -277,6 +291,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.showText);
         }
+
+        self.options.callbackAfterClose();
     };
 
     ShowHide.prototype.rebuild = function() {
