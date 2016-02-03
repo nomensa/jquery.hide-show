@@ -44,6 +44,30 @@ Default: 'js-hide-show_btn--expanded'
 
 Description: The class name applied to the button when the element is expanded
 
+### callbackAfterClose
+
+Type: `function`
+
+Description: Callback at the end of the 'close' public method
+
+### callbackAfterOpen
+
+Type: `function`
+
+Description: Callback at the end of the 'open' public method
+
+### callbackBeforeClose
+
+Type: `function`
+
+Description: Callback at the start of the 'close' public method
+
+### callbackBeforeOpen
+
+Type: `function`
+
+Description: Callback at the start of the 'open' public method
+
 ### callbackCreate
 
 Type: `function`
@@ -55,6 +79,12 @@ Description: Callback when the plugin is created
 Type: `function`
 
 Description: Callback when the plugin is destroyed
+
+### closeOnClick
+
+Type: `boolean`
+
+Description: Collapses the content when clicking elsewhere on the page. This only works if the content has been triggered to begin with and not open by default.
 
 ### containerClass
 
@@ -188,3 +218,6 @@ $ grunt --connect
 Copyright &copy; 2014 [@nomensa](http://nomensa.com)
 
 Licensed under [MIT](http://opensource.org/licenses/mit-license.php)
+
+## Changelog
+* Added ability to close content when clicking outside of that content.

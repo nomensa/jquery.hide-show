@@ -348,6 +348,82 @@ describe('hide-show', function() {
             expect(testElement.hasClass('expanded')).toBe(true);
         });
 
+        it('should trigger "callbackAfterClose" when the close public method is called', function() {
+            var mocks,
+                el,
+                afterClose = false;
+
+            mocks = {
+                callbackAfterClose: function(testElement) {
+                    afterClose = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackAfterClose: mocks.callbackAfterClose
+            });
+
+            el.data('plugin_hideShow').close();
+
+            expect(afterClose).toBe(true);
+        });
+
+        it('should trigger "callbackAfterOpen" when the open public method is called', function() {
+            var mocks,
+                el,
+                afterOpen = false;
+
+            mocks = {
+                callbackAfterOpen: function(testElement) {
+                    afterOpen = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackAfterOpen: mocks.callbackAfterOpen
+            });
+
+            el.data('plugin_hideShow').open();
+
+            expect(afterOpen).toBe(true);
+        });
+
+        it('should trigger "callbackBeforeClose" when the close public method is called', function() {
+            var mocks,
+                el,
+                beforeClose = false;
+
+            mocks = {
+                callbackBeforeClose: function(testElement) {
+                    beforeClose = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackBeforeClose: mocks.callbackBeforeClose
+            });
+
+            el.data('plugin_hideShow').close();
+
+            expect(beforeClose).toBe(true);
+        });
+
+        it('should trigger "callbackBeforeOpen" when the open public method is called', function() {
+            var mocks,
+                el,
+                beforeOpen = false;
+
+            mocks = {
+                callbackBeforeOpen: function(testElement) {
+                    beforeOpen = true;
+                }
+            },
+            el = testElement.hideShow({
+                callbackBeforeOpen: mocks.callbackBeforeOpen
+            });
+
+            el.data('plugin_hideShow').open();
+
+            expect(beforeOpen).toBe(true);
+        });
+
         it('should trigger "callbackCreate" once the plugin has been created', function() {
             var mocks,
                 el,
@@ -366,6 +442,28 @@ describe('hide-show', function() {
         });
 
         it('should trigger "callbackDestroy" once the plugin has been destroyed', function() {
+            var mocks,
+                el,
+                button;
+
+            el = testElement.hideShow({
+                closeOnClick: true
+            });
+            button = testElement.siblings('.js-hide-show_btn');
+
+            // Click to close the content that is open by default
+            button.click();
+            // Click to open the content
+            button.click();
+            // Move the content so that it is off the page
+            el.hide();
+            // Click elsewhere on the page
+            $(document).mouseup();
+
+            expect(testElement.attr('aria-hidden')).toBe('true');
+        });
+
+        it('should hide the content if clicked elsewhere in the document', function() {
             var mocks,
                 el,
                 destroyed = false;

@@ -3,7 +3,7 @@
  *
  * @description: Inserts an accessible buttons/links to hide and show sections of content
  * @source: https://github.com/nomensa/jquery.hide-show.git
- * @version: '1.0.0'
+ * @version: '1.2.0'
  *
  * @author: Nomensa
  * @license: licenced under MIT - http://opensource.org/licenses/mit-license.php
@@ -24,6 +24,14 @@
         buttonCollapsedClass: 'js-hide-show_btn--collapsed',
         // the class name applied to the button when element is expanded
         buttonExpandedClass: 'js-hide-show_btn--expanded',
+        // Callback at the end of the 'close' public method
+        callbackAfterClose: function() {},
+        // Callback at the end of the 'open' public method
+        callbackAfterOpen: function() {},
+        // Callback at the start of the 'close' public method
+        callbackBeforeClose: function() {},
+        // Callback at the start of the 'open' public method
+        callbackBeforeOpen: function() {},
         // Callback when the plugin is created
         callbackCreate: function() {},
         // Callback when the plugin is destroyed
@@ -34,6 +42,8 @@
         containerCollapsedClass: 'js-hide-show_content--collapsed',
         // the class name applied to the visible element
         containerExpandedClass: 'js-hide-show_content--expanded',
+        // Whether the content closes when clicking elsewhere in the document
+        closeOnClick: false,
         // the text to apply to the button/link phrase for the trigger element when visible
         hideText: 'Hide Content',
         // Method that is used to insert the trigger button into the location, options are 'after', 'append' 'before' and 'prepend'
@@ -174,7 +184,30 @@
                 event.preventDefault();
 
                 self.toggle();
+
+                // Note that this is meant to work for content that has been triggered
+                // and not open by default
+                if (self.options.closeOnClick === true) {
+                    // If open
+                    if (self.element.attr('aria-hidden') === 'false') {
+                        // Hide the content if clicked elsewhere in the document
+                        $(document).mouseup(function(event) {
+                            var content = self.element,
+                                target = event.target;
+
+                            // If clicked on elsewhere (nor a descendant of the content)
+                            if (!content.is(target) && content.has(target).length === 0) {
+
+                                // If the trigger button is not clicked on
+                                if (!self.triggerElement.is(target)) {
+                                    self.close();
+                                }
+                            }
+                        });
+                    }
+                }
             };
+
             return self.handleClick;
         }
 
@@ -211,6 +244,8 @@
     */
         var self = this;
 
+        self.options.callbackBeforeOpen();
+
         self.element
             .addClass(this.options.containerExpandedClass)
             .attr('aria-hidden', 'false')
@@ -230,6 +265,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.hideText);
         }
+
+        self.options.callbackAfterOpen();
     };
 
     ShowHide.prototype.close = function() {
@@ -237,6 +274,8 @@
         Public method for hiding the element
     */
         var self = this;
+
+        self.options.callbackBeforeClose();
 
         self.element
             .addClass(this.options.containerCollapsedClass)
@@ -252,6 +291,8 @@
         if (self.options.triggerElementTarget === null) {
             self.triggerElement.html(this.options.showText);
         }
+
+        self.options.callbackAfterClose();
     };
 
     ShowHide.prototype.rebuild = function() {
