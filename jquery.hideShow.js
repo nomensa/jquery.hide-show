@@ -241,7 +241,7 @@
             self.triggerElement.html(this.options.hideText);
         }
 
-        self.options.callbackOpened();
+        self.options.callbackAfterOpen();
     };
 
     ShowHide.prototype.close = function() {
@@ -267,7 +267,7 @@
             self.triggerElement.html(this.options.showText);
         }
 
-        self.options.callbackClosed();
+        self.options.callbackAfterClose();
     };
 
     ShowHide.prototype.rebuild = function() {
